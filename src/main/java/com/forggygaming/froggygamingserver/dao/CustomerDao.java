@@ -24,10 +24,10 @@ public class CustomerDao {
     }
 
     public void insertCus(Customer customer){
-       //tạo luồng
-       Session session= sessionFactory.getCurrentSession();
+       //mở luồng
+       Session session= sessionFactory.openSession();
         try {
-            //mở luồng
+            //bắt đầu giao dịch
             session.beginTransaction();
             //lưu vào db
             session.save(customer);
