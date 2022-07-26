@@ -1,6 +1,5 @@
 package com.forggygaming.froggygamingserver.controller;
 
-import com.forggygaming.froggygamingserver.dao.CustomerDao;
 import com.forggygaming.froggygamingserver.entity.Customer;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.service.CustomerServices;
@@ -21,8 +20,30 @@ public class CustomerController {
 
         return customerServices.getAllCustomer();
     }
+
     @PostMapping
-    public void insertCustomer(@RequestBody Customer customer){
-        customerServices.insertCustomer(customer);
+    public ResponseEntity<ResponseObject> insertCustomer(@RequestBody Customer customer){
+        Customer found=customerServices.findByCusEmail(customer.getCusEmail());
+        return (found==null)?ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK","insert success",customerServices.insertCustomer(customer))
+        ):ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                new ResponseObject(
+                        "Failed","Email already exist",""
+                )
+        );
+
     }
+
+    @GetMapping("/login")
+    public ResponseEntity<ResponseObject> checkLogin(@RequestBody Customer customer){
+        Customer found=customerServices.checkloginEmail(customer);
+
+        return  (found==null)? ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("Failed","Username or password invalid","")
+        ):ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("Ok","success",found)
+        );
+    }
+
+
 }

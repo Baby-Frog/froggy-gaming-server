@@ -11,20 +11,24 @@ import java.util.Date;
 @Data
 public class Customer {
     @Id
-    @Column(name = "cusId")
+    @Column(name = "cus_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "cusName")
+    @Column(name = "cus_name")
     private String cusName;
-    @Column(name = "cusBirth")
+    @Column(name = "cus_birth")
     private Date cusBirth;
-    @Column(name = "cusEmail")
+    @Column(name = "cus_email")
     private String cusEmail;
-    @Column(name = "cusPhone")
+    @Column(name = "cus_phone")
     private long cusPhone;
-    @Column(name = "cusAddress")
+    @Column(name = "cus_password")
+    private String cusPassword;
+    @Column(name = "cus_address")
     private String cusAddress;
-    @Column(name = "cusAvt")
+    @Column(name = "cus_avt")
     private String cusAvt;
+
+
 
 }
