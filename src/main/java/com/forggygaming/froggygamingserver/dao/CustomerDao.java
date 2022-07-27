@@ -49,28 +49,51 @@ public class CustomerDao {
         }
         return customer;
     }
-    public Customer checkloginEmail(Customer customer){
+    public Customer checklogin(Customer customer){
         Session session=sessionFactory.openSession();
+
         try {
             session.beginTransaction();
             //câu lệnh sql
-            String sql=" FROM Customer WHERE (cusEmail=:cusmail OR cusPhone=:cusPhone ) AND cusPassword=:cuspass";
+            String sql=" FROM Customer WHERE (cusEmail=:cusmail AND cusPassword=:cuspass)";
             //truy vấn sql tuỳ biến
             Query<Customer> query= session.createQuery(sql);
             //set giá trị (prepareStatement)
             query.setParameter("cusmail",customer.getCusEmail())
-                    .setParameter("cusPhone",customer.getCusPhone())
+//                    .setParameter("cusPhone",customer.getCusPhone())
                     .setParameter("cuspass",customer.getCusPassword());
             //log kết quả
             System.out.println(query.getSingleResult());
-            //trả về kết quả
+            //trả về kết quả duy nhất
             return query.getSingleResult();
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }finally {
             session.close();
         }
         return null;
+    }
+    public Customer findByEmail(Customer customer) {
+        Session session= sessionFactory.openSession();
+
+        try {
+            session.beginTransaction();
+            String sql=" FROM Customer WHERE cusEmail=:cusEmail";
+            Query<Customer>query=session.createQuery(sql);
+            query.setParameter("cusEmail",customer.getCusEmail());
+
+           return query.getSingleResult();
+
+
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+       return null;
     }
 
 

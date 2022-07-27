@@ -1,5 +1,6 @@
 package com.forggygaming.froggygamingserver.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,9 +19,9 @@ public class Customer {
     private String cusName;
     @Column(name = "cus_birth")
     private Date cusBirth;
-    @Column(name = "cus_email")
+    @Column(name = "cus_email",unique = true)
     private String cusEmail;
-    @Column(name = "cus_phone")
+    @Column(name = "cus_phone",unique = true)
     private long cusPhone;
     @Column(name = "cus_password")
     private String cusPassword;

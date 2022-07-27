@@ -15,7 +15,7 @@ public class CustomerServices {
     @Autowired
     private CustomerJPA customerJPA;
     public Customer findByCusEmail(String email){
-        return customerJPA.findCustomerByCusEmail(email);
+        return customerJPA.findByCusEmail(email);
     }
     public List<Customer> getAllCustomer(){
         return customerDao.getAllCustomer();
@@ -24,9 +24,12 @@ public class CustomerServices {
        return customerDao.insertCus(customer);
 
     }
-    public Customer checkloginEmail(Customer customer){
+    public Customer checklogin(Customer customer){
 
-      return customerDao.checkloginEmail(customer);
+      return customerDao.checklogin(customer);
+    }
+    public Customer findByEmail(Customer customer)throws Exception{
+        return customerDao.findByEmail(customer);
     }
 
 }
