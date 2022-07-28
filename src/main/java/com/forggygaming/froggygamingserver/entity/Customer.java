@@ -1,13 +1,16 @@
 package com.forggygaming.froggygamingserver.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Customer {
     @Id
     @Column(updatable = false)
@@ -34,4 +37,41 @@ public class Customer {
 
     @Column(nullable = false)
     private String cusAvt;
+
+    public Customer() {
+    }
+
+    public Customer(long cusId,
+                    String cusName,
+                    String cusPassword,
+                    String cusEmail,
+                    long cusPhone,
+                    Date cusBirth,
+                    String cusAddress,
+                    String cusAvt) {
+        this.cusId = cusId;
+        this.cusName = cusName;
+        this.cusPassword = cusPassword;
+        this.cusEmail = cusEmail;
+        this.cusPhone = cusPhone;
+        this.cusBirth = cusBirth;
+        this.cusAddress = cusAddress;
+        this.cusAvt = cusAvt;
+    }
+
+    public Customer(String cusName,
+                    String cusPassword,
+                    String cusEmail,
+                    long cusPhone,
+                    Date cusBirth,
+                    String cusAddress,
+                    String cusAvt) {
+        this.cusName = cusName;
+        this.cusPassword = cusPassword;
+        this.cusEmail = cusEmail;
+        this.cusPhone = cusPhone;
+        this.cusBirth = cusBirth;
+        this.cusAddress = cusAddress;
+        this.cusAvt = cusAvt;
+    }
 }

@@ -58,13 +58,13 @@ public class CustomerDao {
         try {
             session.beginTransaction();
             //câu lệnh sql
-            String sql = "FROM Customer WHERE (cusEmail=:cusmail OR cusPhone=:cusPhone) AND( cusPassword=:cuspass)";
+            String sql = "FROM Customer WHERE (cusEmail=:cusMail OR cusPhone=:cusPhone) AND( cusPassword=:cusPass)";
             //truy vấn sql tuỳ biến
             Query<Customer> query = session.createQuery(sql);
             //set giá trị (prepareStatement)
-            query.setParameter("cusmail", customer.getCusEmail())
+            query.setParameter("cusMail", customer.getCusEmail())
              .setParameter("cusPhone",customer.getCusPhone())
-                    .setParameter("cuspass", customer.getCusPassword());
+                    .setParameter("cusPass", customer.getCusPassword());
             //log kết quả
             System.out.println(query.getSingleResult());
             //trả về kết quả duy nhất
