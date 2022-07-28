@@ -12,7 +12,7 @@ public class Customer {
     @Id
     @Column(updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long cusId;
 
     @Column(nullable = false)
     private String cusName;
