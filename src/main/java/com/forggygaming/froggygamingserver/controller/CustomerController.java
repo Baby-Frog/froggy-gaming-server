@@ -32,13 +32,13 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<ResponseObject> insertCustomer(@RequestBody Customer customer) throws Exception {
 
-        Customer found = customerServices.findByEmail(customer);
+        List<Customer> found = customerServices.findByEmailOrPhone(customer);
 
-        return (found == null) ? ResponseEntity.status(HttpStatus.OK).body(
+        return (found.isEmpty()) ? ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("OK", "insert success", customerServices.insertCustomer(customer))
         ) : ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                 new ResponseObject(
-                        "Failed", "Email already exist", ""
+                        "Failed", "Email or Phone already exist", ""
                 )
         );
 
@@ -46,7 +46,7 @@ public class CustomerController {
 
     @GetMapping("/login")
     public ResponseEntity<ResponseObject> checkLogin(@RequestBody Customer customer) {
-        Customer found = customerRepository.findByCusEmail(customer.getCusEmail());
+        Customer found = customerServices.checkLogin(customer);
 
         return (found == null) ? ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("Failed", "Username or password invalid", "")

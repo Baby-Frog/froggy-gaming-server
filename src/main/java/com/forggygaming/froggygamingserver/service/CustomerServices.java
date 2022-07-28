@@ -35,8 +35,8 @@ public class CustomerServices {
         return customerDao.checkLogin(customer);
     }
 
-    public Customer findByEmail(Customer customer) throws Exception {
-        return customerDao.findByEmail(customer);
+    public List<Customer> findByEmailOrPhone(Customer customer) throws Exception {
+        return customerDao.findByEmailOrPhone(customer);
     }
 
 }

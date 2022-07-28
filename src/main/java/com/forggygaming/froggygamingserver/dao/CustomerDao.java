@@ -5,10 +5,12 @@ import com.forggygaming.froggygamingserver.repository.CustomerRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -76,16 +78,17 @@ public class CustomerDao {
         return null;
     }
 
-    public Customer findByEmail(Customer customer) {
+    public List<Customer> findByEmailOrPhone(Customer customer) {
         Session session = sessionFactory.openSession();
 
         try {
-            session.beginTransaction();
-            String sql = " FROM Customer WHERE cusEmail =: cusEmail";
-            Query<Customer> query = session.createQuery(sql);
-            query.setParameter("cusEmail", customer.getCusEmail());
 
-            return query.getSingleResult();
+            session.beginTransaction();
+            String sql = " FROM Customer WHERE cusEmail =: cusEmail OR cusPhone=:cusPhone";
+            Query<Customer> query = session.createQuery(sql);
+            query.setParameter("cusEmail", customer.getCusEmail()).setParameter("cusPhone",customer.getCusPhone());
+
+            return query.getResultList();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
