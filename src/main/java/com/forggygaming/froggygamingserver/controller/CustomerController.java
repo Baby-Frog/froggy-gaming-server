@@ -17,6 +17,7 @@ public class CustomerController {
     private final CustomerServices customerServices;
     private final CustomerRepository customerRepository;
 
+
     @Autowired
     public CustomerController(CustomerServices customerServices, CustomerRepository customerRepository) {
         this.customerServices = customerServices;
@@ -43,17 +44,36 @@ public class CustomerController {
         );
 
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseObject>updateCustomer(@RequestBody Customer customer,@PathVariable long id){
+        Customer found=customerServices.getById(id);
+        return (found==null)?ResponseEntity.status(HttpStatus.FOUND).body(
+                new ResponseObject("Failed","Not found customer","")
+        ):ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK","Update success",customerServices.updateCustomer(customer))
+        );
+    }
 
     @GetMapping("/login")
     public ResponseEntity<ResponseObject> checkLogin(@RequestBody Customer customer) {
         Customer found = customerServices.checkLogin(customer);
 
-        return (found == null) ? ResponseEntity.status(HttpStatus.OK).body(
+        return (found == null) ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ResponseObject("Failed", "Username or password invalid", "")
         ) : ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("Ok", "success", found)
         );
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseObject> viewProfile(@PathVariable long id){
+
+        return  ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject(
+                        "OK", "Query success",customerServices.getById(id)
+                )
+        )  ;
+
+    }
 
 }

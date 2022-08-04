@@ -2,6 +2,7 @@ package com.forggygaming.froggygamingserver.dao;
 
 import com.forggygaming.froggygamingserver.entity.Customer;
 import com.forggygaming.froggygamingserver.repository.CustomerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -15,10 +16,12 @@ import java.util.List;
 
 @Repository
 @EnableAutoConfiguration
+@Slf4j
 public class CustomerDao {
     private final SessionFactory sessionFactory;
 
     private final CustomerRepository customerRepository;
+
 
     @Autowired
     public CustomerDao(SessionFactory sessionFactory, CustomerRepository customerRepository) {
@@ -44,7 +47,7 @@ public class CustomerDao {
             session.getTransaction().commit();
         } catch (Exception e) {
             //báo lỗi
-            System.out.println("error" + e.getMessage());
+            log.info("error" + e.getMessage());
         } finally {
             //đóng luồng
             session.close();
@@ -52,6 +55,20 @@ public class CustomerDao {
         return customer;
     }
 
+    public Customer updateCustomer(Customer customer){
+        Session session= sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            session.update(customer);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            session.getTransaction().rollback();
+        }finally {
+            session.close();
+        }
+        return customer;
+    }
     public Customer checkLogin(Customer customer) {
         Session session = sessionFactory.openSession();
 
@@ -66,12 +83,12 @@ public class CustomerDao {
              .setParameter("cusPhone",customer.getCusPhone())
                     .setParameter("cusPass", customer.getCusPassword());
             //log kết quả
-            System.out.println(query.getSingleResult());
+            log.info(query.toString());
             //trả về kết quả duy nhất
             return query.getSingleResult();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         } finally {
             session.close();
         }
@@ -80,9 +97,7 @@ public class CustomerDao {
 
     public List<Customer> findByEmailOrPhone(Customer customer) {
         Session session = sessionFactory.openSession();
-
         try {
-
             session.beginTransaction();
             String sql = " FROM Customer WHERE cusEmail =: cusEmail OR cusPhone=:cusPhone";
             Query<Customer> query = session.createQuery(sql);
@@ -91,9 +106,24 @@ public class CustomerDao {
             return query.getResultList();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             session.getTransaction().rollback();
         } finally {
+            session.close();
+        }
+        return null;
+    }
+    public Customer getById(long id){
+        Session session= sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            String sql="From Customer WHERE cusId=:cusId";
+            Query<Customer> query= session.createQuery(sql).setParameter("cusId",id);
+            return query.getSingleResult();
+        }catch (Exception e){
+            log.info("Error :"+e);
+            session.getTransaction().rollback();
+        }finally {
             session.close();
         }
         return null;

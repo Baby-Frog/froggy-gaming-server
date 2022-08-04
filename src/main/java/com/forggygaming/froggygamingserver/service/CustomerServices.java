@@ -23,10 +23,14 @@ public class CustomerServices {
         return customerRepository.findByCusEmail(email);
     }
 
+
     public List<Customer> getAllCustomer() {
         return customerDao.getAllCustomer();
     }
 
+    public Customer updateCustomer(Customer customer){
+        return customerDao.updateCustomer(customer);
+    }
     public Customer insertCustomer(Customer customer) {
         return customerDao.insertCus(customer);
     }
@@ -37,6 +41,9 @@ public class CustomerServices {
 
     public List<Customer> findByEmailOrPhone(Customer customer) throws Exception {
         return customerDao.findByEmailOrPhone(customer);
+    }
+    public Customer getById(long id){
+        return customerDao.getById(id);
     }
 
 }
