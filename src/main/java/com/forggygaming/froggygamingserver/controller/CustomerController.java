@@ -47,7 +47,7 @@ public class CustomerController {
     @PutMapping("/{id}")
     public ResponseEntity<ResponseObject>updateCustomer(@RequestBody Customer customer,@PathVariable long id){
         Customer found=customerServices.getById(id);
-        return (found==null)?ResponseEntity.status(HttpStatus.FOUND).body(
+        return (found==null)?ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ResponseObject("Failed","Not found customer","")
         ):ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("OK","Update success",customerServices.updateCustomer(customer))
