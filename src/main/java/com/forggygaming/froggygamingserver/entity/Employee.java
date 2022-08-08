@@ -33,4 +33,8 @@ public class Employee {
 
     @Column(name = "employee_update_date", nullable = false)
     private Date employeeUpdateDate;
+
+    @OneToOne
+    @JoinColumn(name = "fk_role_id")
+    private Role role;
 }
