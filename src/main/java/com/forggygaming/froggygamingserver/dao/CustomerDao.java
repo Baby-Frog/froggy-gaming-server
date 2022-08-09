@@ -69,6 +69,7 @@ public class CustomerDao {
         }
         return customer;
     }
+
     public Customer checkLogin(Customer customer) {
         Session session = sessionFactory.openSession();
 
@@ -95,15 +96,33 @@ public class CustomerDao {
         return null;
     }
 
-    public List<Customer> findByEmailOrPhone(Customer customer) {
+    public Customer findByEmail(String email) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            String sql = " FROM Customer WHERE cusEmail =: cusEmail OR cusPhone=:cusPhone";
+            String sql = " FROM Customer WHERE cusEmail =: cusEmail ";
             Query<Customer> query = session.createQuery(sql);
-            query.setParameter("cusEmail", customer.getCusEmail()).setParameter("cusPhone",customer.getCusPhone());
+            query.setParameter("cusEmail", email);
 
-            return query.getResultList();
+            return query.getSingleResult();
+
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+    public Customer findByPhone(Long phone){
+        Session session = sessionFactory.openSession();
+        try {
+            session.beginTransaction();
+            String sql = " FROM Customer WHERE cusPhone =: cusPhone ";
+            Query<Customer> query = session.createQuery(sql);
+            query.setParameter("cusPhone",phone);
+
+            return query.getSingleResult();
 
         } catch (Exception e) {
             log.info(e.getMessage());

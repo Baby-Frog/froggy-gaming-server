@@ -39,8 +39,11 @@ public class CustomerServices {
         return customerDao.checkLogin(customer);
     }
 
-    public List<Customer> findByEmailOrPhone(Customer customer) throws Exception {
-        return customerDao.findByEmailOrPhone(customer);
+    public Customer findByEmail(String email) {
+        return customerDao.findByEmail(email);
+    }
+    public Customer findByPhone(Long phone) {
+        return customerDao.findByPhone(phone);
     }
     public Customer getById(long id){
         return customerDao.getById(id);
