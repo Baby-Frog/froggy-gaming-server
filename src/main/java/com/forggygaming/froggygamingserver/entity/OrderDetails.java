@@ -8,37 +8,24 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class Employee {
+public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private Long id;
 
     @NotNull
-    private String firstname;
+    private Long quantity;
 
     @NotNull
-    private String lastname;
-
-    @NotNull @Column(unique = true)
-    private String email;
-
-    @NotNull @Column(unique = true)
-    private Long phoneNumber;
-
-    @NotNull
-    private String password;
+    private Long total;
 
     @NotNull
     private Date createdAt;
 
     @NotNull
-    private Date updatedAt;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    private Date UpdatedAt;
 }

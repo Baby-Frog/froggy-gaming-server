@@ -1,19 +1,17 @@
 package com.forggygaming.froggygamingserver.entity;
 
 import com.sun.istack.NotNull;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
-@Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
-@NoArgsConstructor @AllArgsConstructor
-public class Customer {
+@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
@@ -25,6 +23,9 @@ public class Customer {
     @NotNull
     private String lastname;
 
+    @NotNull
+    private String address;
+
     @NotNull @Column(unique = true)
     private String email;
 
@@ -32,13 +33,12 @@ public class Customer {
     private Long phoneNumber;
 
     @NotNull
-    private String password;
-
-    @NotNull
     private Date createdAt;
 
     @NotNull
     private Date updatedAt;
 
-    private String avatar;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_orders_id", referencedColumnName = "id", nullable = false)
+    private List<OrderDetails> orderDetails;
 }

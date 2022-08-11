@@ -1,5 +1,6 @@
 package com.forggygaming.froggygamingserver.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,15 +14,15 @@ import java.util.Date;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "image_id", updatable = false)
-    private Long imageId;
+    @Column(updatable = false)
+    private Long id;
 
-    @Column(name = "image_url", nullable = false)
-    private String imageUrl;
+    @NotNull @Column(unique = true)
+    private String path;
 
-    @Column(name = "image_create_date", nullable = false)
-    private Date imageCreateDate;
+    @NotNull
+    private Date createdAt;
 
-    @Column(name = "image_update_date", nullable = false)
-    private Date imageUpdateDate;
+    @NotNull
+    private Date updatedAt;
 }

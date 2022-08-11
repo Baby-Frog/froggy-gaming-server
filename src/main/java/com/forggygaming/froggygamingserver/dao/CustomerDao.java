@@ -76,13 +76,13 @@ public class CustomerDao {
         try {
             session.beginTransaction();
             //câu lệnh sql
-            String sql = "FROM Customer WHERE (cusEmail=:cusMail OR cusPhone=:cusPhone) AND( cusPassword=:cusPass)";
+            String sql = "FROM Customer WHERE (email=:cusMail OR phoneNumber=:cusPhone) AND( password=:cusPass)";
             //truy vấn sql tuỳ biến
             Query<Customer> query = session.createQuery(sql);
             //set giá trị (prepareStatement)
-            query.setParameter("cusMail", customer.getCusEmail())
-             .setParameter("cusPhone",customer.getCusPhone())
-                    .setParameter("cusPass", customer.getCusPassword());
+            query.setParameter("cusMail", customer.getEmail())
+                    .setParameter("cusPhone",customer.getPhoneNumber())
+                    .setParameter("cusPass", customer.getPassword());
             //log kết quả
             log.info(query.toString());
             //trả về kết quả duy nhất
@@ -100,7 +100,7 @@ public class CustomerDao {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            String sql = " FROM Customer WHERE cusEmail =: cusEmail ";
+            String sql = " FROM Customer WHERE email =: cusEmail ";
             Query<Customer> query = session.createQuery(sql);
             query.setParameter("cusEmail", email);
 
@@ -118,7 +118,7 @@ public class CustomerDao {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            String sql = " FROM Customer WHERE cusPhone =: cusPhone ";
+            String sql = " FROM Customer WHERE phoneNumber =: cusPhone ";
             Query<Customer> query = session.createQuery(sql);
             query.setParameter("cusPhone",phone);
 
@@ -136,7 +136,7 @@ public class CustomerDao {
         Session session= sessionFactory.openSession();
         try {
             session.beginTransaction();
-            String sql="From Customer WHERE cusId=:cusId";
+            String sql="From Customer WHERE id =:cusId";
             Query<Customer> query= session.createQuery(sql).setParameter("cusId",id);
             return query.getSingleResult();
         }catch (Exception e){

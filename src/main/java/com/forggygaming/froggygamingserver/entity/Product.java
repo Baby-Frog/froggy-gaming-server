@@ -1,5 +1,6 @@
 package com.forggygaming.froggygamingserver.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,29 +11,40 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "product_id", updatable = false)
-    private Long productId;
+    @Column(updatable = false)
+    private Long id;
 
-    @Column(name = "product_name", nullable = false, unique = true)
-    private String productName;
+    @NotNull @Column(unique = true)
+    private String name;
 
-    @Column(name = "product_description")
-    private String productDescription;
+    @NotNull
+    private double price;
 
-    @Column(name = "product_price", nullable = false)
-    private double productPrice;
+    private String description;
 
-    @Column(name = "product_create_date", nullable = false)
-    private Date productCreateDate;
+    @NotNull
+    private Date createAt;
 
-    @Column(name = "product_update_date", nullable = false)
-    private Date productUpdateDate;
+    @NotNull
+    private Date updateAt;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Brand> brands;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_product_id", referencedColumnName = "product_id", nullable = false)
+    @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
     private List<Image> images;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
+    private List<ProductDetail> productDetails;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
+    private List<OrderDetails> orderDetails;
 }

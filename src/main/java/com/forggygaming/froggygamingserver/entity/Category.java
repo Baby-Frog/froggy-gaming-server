@@ -1,5 +1,6 @@
 package com.forggygaming.froggygamingserver.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,23 +11,27 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "category_id", updatable = false)
-    private Long categoryId;
+    @Column(updatable = false)
+    private Long id;
 
-    @Column(name = "category_name", nullable = false)
-    private String categoryName;
+    @NotNull
+    @Column(unique = true)
+    private String name;
 
-    @Column(name = "category_create_date", nullable = false)
-    private Date categoryCreateDate;
+    @NotNull
+    private Date createdAt;
 
-    @Column(name = "category_update_date", nullable = false)
-    private Date categoryUpdateDate;
+    @NotNull
+    private Date updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_category_id", referencedColumnName = "category_id", nullable = false)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_category_id", referencedColumnName = "id", nullable = false)
     private List<Product> products;
 }
