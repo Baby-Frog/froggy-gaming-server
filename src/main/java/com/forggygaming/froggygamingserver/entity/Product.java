@@ -28,10 +28,10 @@ public class Product {
     private String description;
 
     @NotNull
-    private Date createAt;
+    private Date createdAt;
 
     @NotNull
-    private Date updateAt;
+    private Date updatedAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Brand> brands;
