@@ -33,9 +33,6 @@ public class Product {
     @Column(nullable = false)
     private Date updatedAt;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Brand> brands;
-
     @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
     private List<Image> images;

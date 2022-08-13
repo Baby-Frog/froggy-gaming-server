@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
@@ -25,4 +26,8 @@ public class Brand {
 
     @Column(nullable = false)
     private Date updatedAt;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_brand_id", referencedColumnName = "id", nullable = false)
+    private List<Product> products;
 }

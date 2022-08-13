@@ -43,6 +43,7 @@ public class BrandServices {
     public ResponseEntity<ResponseObject> updateBrandById(Long id, Brand brand) {
         Brand brandUpdate = brandRepository.findById(id).orElseThrow(() -> new IllegalStateException("This brand is not exists !"));
         brandUpdate.setName(brand.getName());
+        brandUpdate.setProducts(brand.getProducts());
         brandUpdate.setUpdatedAt(brand.getUpdatedAt());
         brandRepository.save(brandUpdate);
         return ResponseEntity.ok().body(new ResponseObject("OK", "update successfully", brandUpdate));
