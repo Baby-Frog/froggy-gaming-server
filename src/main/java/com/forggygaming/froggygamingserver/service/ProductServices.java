@@ -26,7 +26,7 @@ public class ProductServices {
                 ? ResponseEntity.ok()
                 .body(new ResponseObject("OK", "Save new product successfully", productRepository.save(product)))
                 : ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
-                .body(new ResponseObject("FALSE", "This product is exists !", productRepository.findProductByName(product.getName())));
+                .body(new ResponseObject("FALSE", "This product is exists !", ""));
     }
 
     public ResponseEntity<ResponseObject> deleteProductById(Long id) {
@@ -37,5 +37,16 @@ public class ProductServices {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(new ResponseObject("FALSE", "This category is not exists !!", id));
+    }
+
+    public ResponseEntity<ResponseObject> updateProductById(Long id, Product product) {
+        Product productUpdate = productRepository.findById(id).orElseThrow(() -> new IllegalStateException("This product is not exists !"));
+        productUpdate.setName(product.getName());
+        productUpdate.setPrice(product.getPrice());
+        productUpdate.setDescription(product.getDescription());
+        productUpdate.setImages(product.getImages());
+        productUpdate.setProductDetails(product.getProductDetails());
+        productUpdate.setUpdatedAt(product.getUpdatedAt());
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Update successfully !", productRepository.save(productUpdate)));
     }
 }

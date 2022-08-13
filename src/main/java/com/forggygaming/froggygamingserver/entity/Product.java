@@ -43,8 +43,4 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
     private List<ProductDetail> productDetails;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
-    private List<OrderDetails> orderDetails;
 }

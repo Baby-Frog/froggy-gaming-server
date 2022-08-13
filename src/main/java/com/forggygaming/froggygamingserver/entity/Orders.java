@@ -38,7 +38,6 @@ public class Orders {
     @NotNull
     private Date updatedAt;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_orders_id", referencedColumnName = "id", nullable = false)
-    private List<OrderDetails> orderDetails;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Product> products;
 }

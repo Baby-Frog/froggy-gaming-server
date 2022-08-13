@@ -25,16 +25,16 @@ public class CustomerController {
     public ResponseEntity<ResponseObject> insertCustomer(@RequestBody Customer customer) throws Exception {
 
         Customer foundEmail = customerServices.findByCusEmail(customer.getEmail());
-        Customer foundPhone=customerServices.findByPhone(customer.getPhoneNumber());
+        Customer foundPhone = customerServices.findByPhone(customer.getPhoneNumber());
 
-        return ((foundEmail==null)
-                    ?(foundPhone==null)
-                        ? ResponseEntity.status(HttpStatus.OK).body(
-                            new ResponseObject("OK", "insert success", customerServices.insertCustomer(customer))
-                        ):ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                            new ResponseObject("Failed", " Phone already exist", "")
-                    ):ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                        new ResponseObject("Failed", "Email already exist", "")
+        return ((foundEmail == null)
+                ? (foundPhone == null)
+                ? ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK", "insert success", customerServices.insertCustomer(customer))
+        ) : ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                new ResponseObject("Failed", " Phone already exist", "")
+        ) : ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                new ResponseObject("Failed", "Email already exist", "")
         ));
 
     }
@@ -48,7 +48,6 @@ public class CustomerController {
                 new ResponseObject("OK", "Update success", customerServices.updateCustomer(customer))
         );
     }
-
 
 
     @GetMapping("/login")

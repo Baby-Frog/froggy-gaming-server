@@ -16,8 +16,8 @@ public class CategoryController {
     private final CategoryServices categoryServices;
 
     @GetMapping
-    public ResponseEntity<List<Category>> getCategories() {
-        return ResponseEntity.ok().body(categoryServices.getCategories());
+    public List<Category> getCategories() {
+        return categoryServices.getCategories();
     }
 
     @PostMapping("/save")

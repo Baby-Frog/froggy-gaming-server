@@ -19,7 +19,6 @@ public class CustomerServices {
         return customerRepository.findByEmail(email);
     }
 
-
     public List<Customer> getAllCustomer() {
         return customerDao.getAllCustomer();
     }

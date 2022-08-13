@@ -17,21 +17,51 @@ public class ProductDetail {
     @Column(updatable = false)
     private Long id;
 
-    @NotNull
     private String model;
 
-    @NotNull
     private String connect;
 
-    @NotNull
-    private String color;
+    private Long age;
 
-    @NotNull
+    private double weight;
+
+    private String compatible;
+
     private String size;
 
-    @NotNull
+    private String color;
+
+    private String accessories;
+
+    private String layout;
+
+    private String specialFeature;
+
+    private String keyboardSwitch;
+
+    private String keyboardKeyCap;
+
+    private String mouseDpi;
+
+    private String mouseSensor;
+
+    private String chairLifter;
+
+    private String chairPillow;
+
+    private String chairWheel;
+
+    private String chairMaximum;
+
+    private String microphoneFrequency;
+
+    private String microphoneBitrate;
+
+    private String microphoneSens;
+
+    private String microphoneSpl;
+
     private Date createdAt;
 
-    @NotNull
     private Date updatedAt;
 }
