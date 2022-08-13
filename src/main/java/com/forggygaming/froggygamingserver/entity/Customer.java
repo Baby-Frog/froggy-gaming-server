@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -34,6 +35,8 @@ public class Customer {
     @NotNull
     private String password;
 
+    private String address;
+
     @NotNull
     private Date createdAt;
 
@@ -41,4 +44,8 @@ public class Customer {
     private Date updatedAt;
 
     private String avatar;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_customer_id", referencedColumnName = "id", nullable = false)
+    private List<Orders> orders;
 }

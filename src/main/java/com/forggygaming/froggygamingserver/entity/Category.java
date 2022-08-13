@@ -31,7 +31,7 @@ public class Category {
     @NotNull
     private Date updatedAt;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_category_id", referencedColumnName = "id", nullable = false)
     private List<Product> products;
 }

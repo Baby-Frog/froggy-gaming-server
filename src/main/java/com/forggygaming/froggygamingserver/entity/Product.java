@@ -33,14 +33,18 @@ public class Product {
     @NotNull
     private Date updatedAt;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Brand> brands;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY ,cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
     private List<Image> images;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
     private List<ProductDetail> productDetails;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_product_id", referencedColumnName = "id", nullable = false)
+    private List<OrderDetail> orderDetails;
 }
