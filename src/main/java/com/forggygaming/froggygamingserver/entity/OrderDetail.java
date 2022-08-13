@@ -20,9 +20,9 @@ public class OrderDetail {
     private Long total;
     private String address;
 
-    @NotNull
+    @Column(nullable = false)
     private Date createdAt;
 
-    @NotNull
+    @Column(nullable = false)
     private Date updatedAt;
 }

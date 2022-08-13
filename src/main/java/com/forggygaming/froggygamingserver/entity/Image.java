@@ -17,12 +17,12 @@ public class Image {
     @Column(updatable = false)
     private Long id;
 
-    @NotNull @Column(unique = true)
+    @Column(nullable = false)
     private String path;
 
-    @NotNull
+    @Column(nullable = false)
     private Date createdAt;
 
-    @NotNull
+    @Column(nullable = false)
     private Date updatedAt;
 }

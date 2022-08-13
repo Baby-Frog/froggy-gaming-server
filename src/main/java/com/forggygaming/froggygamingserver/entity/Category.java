@@ -21,14 +21,13 @@ public class Category {
     @Column(updatable = false)
     private Long id;
 
-    @NotNull
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String name;
 
-    @NotNull
+    @Column(nullable = false)
     private Date createdAt;
 
-    @NotNull
+    @Column(nullable = false)
     private Date updatedAt;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -17,12 +17,12 @@ public class Role {
     @Column(updatable = false)
     private Long id;
 
-    @NotNull @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @NotNull
+    @Column(nullable = false)
     private Date createdAt;
 
-    @NotNull
+    @Column(nullable = false)
     private Date updatedAt;
 }

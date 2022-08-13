@@ -18,25 +18,25 @@ public class Employee {
     @Column(updatable = false)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String firstname;
 
-    @NotNull
+    @Column(nullable = false)
     private String lastname;
 
-    @NotNull @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @NotNull @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private Long phoneNumber;
 
-    @NotNull
+    @Column(nullable = false)
     private String password;
 
-    @NotNull
+    @Column(nullable = false)
     private Date createdAt;
 
-    @NotNull
+    @Column(nullable = false)
     private Date updatedAt;
 
     @ManyToMany(fetch = FetchType.LAZY)

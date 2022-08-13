@@ -11,36 +11,35 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private Long id;
 
-    @NotNull
+    @Column(nullable = false)
     private String firstname;
 
-    @NotNull
+    @Column(nullable = false)
     private String lastname;
 
-    @NotNull @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @NotNull @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private Long phoneNumber;
 
-    @NotNull
+    @Column(nullable = false)
     private String password;
 
     private String address;
 
-    @NotNull
+    @Column(nullable = false)
     private Date createdAt;
 
-    @NotNull
+    @Column(nullable = false)
     private Date updatedAt;
 
     private String avatar;
