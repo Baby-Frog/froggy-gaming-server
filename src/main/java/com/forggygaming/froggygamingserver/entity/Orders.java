@@ -1,29 +1,32 @@
 package com.forggygaming.froggygamingserver.entity;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
-@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Entity
+@Data
+@Transactional
+@NoArgsConstructor
+@AllArgsConstructor
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false)
     private Long id;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
-    @Column(nullable = false)
-    private Date createdAt;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
-    @Column(nullable = false)
-    private Date updatedAt;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_order_id", referencedColumnName = "id", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderDetail> orderDetails;
 }

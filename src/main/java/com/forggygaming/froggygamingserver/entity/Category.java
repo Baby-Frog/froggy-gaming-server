@@ -1,36 +1,32 @@
 package com.forggygaming.froggygamingserver.entity;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity @Data @Transactional
+@NoArgsConstructor @AllArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
-    private Long id;
-
-    @Column(unique = true, nullable = false)
-    private String name;
+    private Long cateId;
 
     @Column(nullable = false)
-    private Date createdAt;
+    private String cateName;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
-    @Column(nullable = false)
-    private Date updatedAt;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_category_id", referencedColumnName = "id", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category")
     private List<Product> products;
+
+    public void addProduct(Product product) {
+        product.setCategory(this);
+        products.add(product);
+    }
 }

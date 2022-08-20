@@ -2,9 +2,8 @@ package com.forggygaming.froggygamingserver.service;
 
 import com.forggygaming.froggygamingserver.dao.CustomerDao;
 import com.forggygaming.froggygamingserver.entity.Customer;
-import com.forggygaming.froggygamingserver.repository.CustomerRepository;
+import com.forggygaming.froggygamingserver.repository.CustomerRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerServices {
     private final CustomerDao customerDao;
-    private final CustomerRepository customerRepository;
+    private final CustomerRepo customerRepo;
 
     public Customer findByCusEmail(String email) {
-        return customerRepository.findByEmail(email);
+        return customerRepo.findByCusEmail(email);
     }
 
     public List<Customer> getAllCustomer() {

@@ -1,17 +1,15 @@
 package com.forggygaming.froggygamingserver.dao;
 
 import com.forggygaming.froggygamingserver.entity.Customer;
-import com.forggygaming.froggygamingserver.repository.CustomerRepository;
+import com.forggygaming.froggygamingserver.repository.CustomerRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -20,18 +18,18 @@ import java.util.List;
 public class CustomerDao {
     private final SessionFactory sessionFactory;
 
-    private final CustomerRepository customerRepository;
+    private final CustomerRepo customerRepo;
 
 
     @Autowired
-    public CustomerDao(SessionFactory sessionFactory, CustomerRepository customerRepository) {
+    public CustomerDao(SessionFactory sessionFactory, CustomerRepo customerRepo) {
         this.sessionFactory = sessionFactory;
-        this.customerRepository = customerRepository;
+        this.customerRepo = customerRepo;
     }
 
     public List<Customer> getAllCustomer() {
 
-        return customerRepository.findAll();
+        return customerRepo.findAll();
     }
 
     public Customer insertCus(Customer customer) {
@@ -76,13 +74,13 @@ public class CustomerDao {
         try {
             session.beginTransaction();
             //câu lệnh sql
-            String sql = "FROM Customer WHERE (email=:cusMail OR phoneNumber=:cusPhone) AND( password=:cusPass)";
+            String sql = "FROM Customer WHERE (cusEmail=:cusMail OR cusPhoneNumber=:cusPhone) AND( cusPassword=:cusPass)";
             //truy vấn sql tuỳ biến
             Query<Customer> query = session.createQuery(sql);
             //set giá trị (prepareStatement)
-            query.setParameter("cusMail", customer.getEmail())
-                    .setParameter("cusPhone",customer.getPhoneNumber())
-                    .setParameter("cusPass", customer.getPassword());
+            query.setParameter("cusMail", customer.getCusEmail())
+                    .setParameter("cusPhone",customer.getCusPhoneNumber())
+                    .setParameter("cusPass", customer.getCusPassword());
             //log kết quả
             log.info(query.toString());
             //trả về kết quả duy nhất
@@ -100,7 +98,7 @@ public class CustomerDao {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            String sql = " FROM Customer WHERE email =: cusEmail ";
+            String sql = " FROM Customer WHERE cusEmail =: cusEmail ";
             Query<Customer> query = session.createQuery(sql);
             query.setParameter("cusEmail", email);
 
@@ -118,7 +116,7 @@ public class CustomerDao {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            String sql = " FROM Customer WHERE phoneNumber =: cusPhone ";
+            String sql = " FROM Customer WHERE cusPhoneNumber =: cusPhone ";
             Query<Customer> query = session.createQuery(sql);
             query.setParameter("cusPhone",phone);
 

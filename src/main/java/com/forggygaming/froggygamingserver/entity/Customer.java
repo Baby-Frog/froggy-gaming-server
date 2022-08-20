@@ -1,50 +1,49 @@
 package com.forggygaming.froggygamingserver.entity;
 
-import com.sun.istack.NotNull;
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
+@Transactional
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
-    private Long id;
+    private Long cusId;
 
     @Column(nullable = false)
-    private String firstname;
+    private String cusFirstname;
 
     @Column(nullable = false)
-    private String lastname;
+    private String cusLastname;
 
-    @Column(unique = true, nullable = false)
-    private String email;
+    @Column(nullable = false, unique = true)
+    private String cusEmail;
 
-    @Column(unique = true, nullable = false)
-    private Long phoneNumber;
-
-    @Column(nullable = false)
-    private String password;
-
-    private String address;
+    @Column(nullable = false, unique = true)
+    private Long cusPhoneNumber;
 
     @Column(nullable = false)
-    private Date createdAt;
+    private String cusPassword;
+    private String cusAvatarPath;
+    private String cusAddress;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
-    @Column(nullable = false)
-    private Date updatedAt;
-
-    private String avatar;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_customer_id", referencedColumnName = "id", nullable = false)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Orders> orders;
+
+    public void addOrder(Orders orders) {
+        orders.setCustomer(this);
+        this.orders.add(orders);
+    }
 }

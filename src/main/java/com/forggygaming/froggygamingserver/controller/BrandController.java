@@ -20,9 +20,14 @@ public class BrandController {
         return brandServices.getBrands();
     }
 
-    @PostMapping("/save")
+    @PostMapping(value = "/save",  consumes = {"application/json"})
     public ResponseEntity<ResponseObject> saveNewBrand(@RequestBody Brand brand) {
         return brandServices.saveNewBrand(brand);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseObject> updateBrandById(@PathVariable Long id, @RequestBody Brand brand) {
+        return brandServices.updateBrandById(id, brand);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -30,8 +35,4 @@ public class BrandController {
         return brandServices.deleteBrandById(id);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<ResponseObject> updateBrandById(@PathVariable Long id, @RequestBody Brand brand) {
-        return brandServices.updateBrandById(id, brand);
-    }
 }

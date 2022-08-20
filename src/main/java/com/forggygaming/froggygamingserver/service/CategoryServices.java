@@ -2,47 +2,50 @@ package com.forggygaming.froggygamingserver.service;
 
 import com.forggygaming.froggygamingserver.entity.Category;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
-import com.forggygaming.froggygamingserver.repository.CategoryRepository;
+import com.forggygaming.froggygamingserver.repository.CategoryRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryServices {
-    private final CategoryRepository categoryRepository;
+    private final CategoryRepo categoryRepo;
 
     public List<Category> getCategories() {
-        return categoryRepository.findAll();
+        return categoryRepo.findAll();
     }
 
     public ResponseEntity<ResponseObject> saveNewCategory(Category category) {
-        Optional<Category> exists = categoryRepository.findCategoryByName(category.getName());
-        return exists.isEmpty()
-                ? ResponseEntity.ok()
-                .body(new ResponseObject("OK", "Save new category successfully", categoryRepository.save(category)))
-                : ResponseEntity
-                .status(HttpStatus.NOT_IMPLEMENTED)
-                .body(new ResponseObject("FALSE", "this category is exists !", ""));
+        Category exists = categoryRepo.findCategoryByCateName(category.getCateName());
+        if (exists != null) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ResponseObject("FALSE", "This category is exists !", categoryRepo.findCategoryByCateName(category.getCateName())));
+        }
+        category.setCreatedAt(LocalDate.now());
+        category.setUpdatedAt(LocalDate.now());
+        categoryRepo.save(category);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", category));
     }
 
     public ResponseEntity<ResponseObject> deleteCategoryById(Long id) {
-        Optional<Category> exists = categoryRepository.findById(id);
+        Optional<Category> exists = categoryRepo.findById(id);
         if (exists.isPresent()) {
-            categoryRepository.deleteById(id);
-            return ResponseEntity.ok().body(new ResponseObject("OK", "Delete successfully", id));
+            categoryRepo.deleteById(id);
+            return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", id));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "This category is not exists !!", id));
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ResponseObject("FALSE", "This category is not exists !", id));
     }
 
     public ResponseEntity<ResponseObject> updateCategoryById(Long id, Category category) {
-        Category categoryUpdate = categoryRepository.findById(id).orElseThrow(() -> new IllegalAccessError("this category is not exists !!"));
-        categoryUpdate.setName(category.getName());
-        categoryUpdate.setUpdatedAt(category.getUpdatedAt());
-        return ResponseEntity.ok().body(new ResponseObject("OK", "Update category successfully", categoryUpdate));
+        Category categoryUpdate = categoryRepo.findById(id).orElseThrow(() -> new IllegalStateException("This category is not exists !"));
+        categoryUpdate.setCateName(category.getCateName());
+        categoryUpdate.setUpdatedAt(LocalDate.now());
+        categoryRepo.save(categoryUpdate);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", categoryUpdate));
     }
 }

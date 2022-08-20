@@ -24,8 +24,8 @@ public class CustomerController {
     @PostMapping("/save")
     public ResponseEntity<ResponseObject> insertCustomer(@RequestBody Customer customer) throws Exception {
 
-        Customer foundEmail = customerServices.findByCusEmail(customer.getEmail());
-        Customer foundPhone = customerServices.findByPhone(customer.getPhoneNumber());
+        Customer foundEmail = customerServices.findByCusEmail(customer.getCusEmail());
+        Customer foundPhone = customerServices.findByPhone(customer.getCusPhoneNumber());
 
         return ((foundEmail == null)
                 ? (foundPhone == null)

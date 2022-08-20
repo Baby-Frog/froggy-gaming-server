@@ -1,10 +1,10 @@
 package com.forggygaming.froggygamingserver.repository;
 
-import com.forggygaming.froggygamingserver.entity.Product;
+import com.forggygaming.froggygamingserver.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
-    Product findProductByName(String name);
+public interface CategoryRepo extends JpaRepository<Category, Long> {
+    Category findCategoryByCateName(String cateName);
 }

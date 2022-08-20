@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Long> {
-    Customer findByEmail(String email);
+public interface CustomerRepo extends JpaRepository<Customer,Long> {
+    Customer findByCusEmail(String email);
 
-    Customer findByPassword(String password);
+    Customer findByCusPassword(String password);
 }

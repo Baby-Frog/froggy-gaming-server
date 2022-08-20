@@ -13,25 +13,25 @@ import java.util.List;
 @RequestMapping("api/v1/category")
 @RequiredArgsConstructor
 public class CategoryController {
-    private final CategoryServices categoryServices;
+    private final CategoryServices categoryService;
 
     @GetMapping
     public List<Category> getCategories() {
-        return categoryServices.getCategories();
+        return categoryService.getCategories();
     }
 
-    @PostMapping("/save")
+    @PostMapping(value = "/save", consumes = {"application/json"})
     public ResponseEntity<ResponseObject> saveNewCategory(@RequestBody Category category) {
-        return categoryServices.saveNewCategory(category);
+        return categoryService.saveNewCategory(category);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseObject> deleteCategoryById(@PathVariable Long id) {
-        return categoryServices.deleteCategoryById(id);
+        return categoryService.deleteCategoryById(id);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseObject> updateCategoryById(@PathVariable Long id, @RequestBody Category category) {
-        return categoryServices.updateCategoryById(id, category);
+        return categoryService.updateCategoryById(id, category);
     }
 }

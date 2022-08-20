@@ -1,67 +1,51 @@
 package com.forggygaming.froggygamingserver.entity;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.transaction.Transactional;
+import java.time.LocalDate;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Transactional
 public class ProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
     private Long id;
-
     private String model;
-
     private String connect;
-
-    private Long age;
-
-    private double weight;
-
+    private int age;
+    private int weight;
     private String compatible;
-
     private String size;
-
+    private String cable;
     private String color;
-
     private String accessories;
-
     private String layout;
-
     private String specialFeature;
-
     private String keyboardSwitch;
-
-    private String keyboardKeyCap;
-
+    private String keyboardKeycap;
     private String mouseDpi;
-
     private String mouseSensor;
-
     private String chairLifter;
-
     private String chairPillow;
-
     private String chairWheel;
-
     private String chairMaximum;
-
     private String microphoneFrequency;
-
-    private String microphoneBitrate;
-
     private String microphoneSens;
+    private String microphoneBitrate;
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
 
-    private String microphoneSpl;
-
-    private Date createdAt;
-
-    private Date updatedAt;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

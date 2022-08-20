@@ -2,50 +2,49 @@ package com.forggygaming.froggygamingserver.service;
 
 import com.forggygaming.froggygamingserver.entity.Brand;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
-import com.forggygaming.froggygamingserver.repository.BrandRepository;
+import com.forggygaming.froggygamingserver.repository.BrandRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class BrandServices {
-    private final BrandRepository brandRepository;
+    private final BrandRepo brandRepo;
 
     public List<Brand> getBrands() {
-        return brandRepository.findAll();
+        return brandRepo.findAll();
     }
 
     public ResponseEntity<ResponseObject> saveNewBrand(Brand brand) {
-        Brand exists = brandRepository.findBrandByName(brand.getName());
-        return exists == null
-                ? ResponseEntity.ok()
-                .body(new ResponseObject("OK", "save new brand successfully", brandRepository.save(brand)))
-                : ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
-                .body(new ResponseObject("FAlSE", "This brand is exists !", ""));
-    }
-
-    public ResponseEntity<ResponseObject> deleteBrandById(Long id) {
-        Optional<Brand> exists = brandRepository.findById(id);
-        if (exists.isPresent()) {
-            brandRepository.deleteById(id);
-            return ResponseEntity.ok()
-                    .body(new ResponseObject("OK", "Delete successfully !", id));
+        Brand exists = brandRepo.findBrandByBrandName(brand.getBrandName());
+        if (exists != null) {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ResponseObject("FALSE", "This brand is exists!", exists));
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ResponseObject("FALSE", "This brand is not exists !", id));
+        brand.setCreatedAt(LocalDate.now());
+        brand.setUpdatedAt(LocalDate.now());
+        return ResponseEntity.ok().body(new ResponseObject("OK", "successfully", brand));
     }
 
     public ResponseEntity<ResponseObject> updateBrandById(Long id, Brand brand) {
-        Brand brandUpdate = brandRepository.findById(id).orElseThrow(() -> new IllegalStateException("This brand is not exists !"));
-        brandUpdate.setName(brand.getName());
-        brandUpdate.setProducts(brand.getProducts());
-        brandUpdate.setUpdatedAt(brand.getUpdatedAt());
-        brandRepository.save(brandUpdate);
-        return ResponseEntity.ok().body(new ResponseObject("OK", "update successfully", brandUpdate));
+        Brand updateBrand = brandRepo.findById(id).orElseThrow(() -> new IllegalStateException("This brand is not exists !"));
+        updateBrand.setBrandName(brand.getBrandName());
+        updateBrand.setUpdatedAt(LocalDate.now());
+        brandRepo.save(updateBrand);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", updateBrand));
+    }
+
+    public ResponseEntity<ResponseObject> deleteBrandById(Long id) {
+        Optional<Brand> exists = brandRepo.findById(id);
+        if (exists.isPresent()) {
+            brandRepo.deleteById(id);
+            return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", id));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "This brand is not exists !", id));
     }
 }
