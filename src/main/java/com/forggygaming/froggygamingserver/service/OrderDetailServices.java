@@ -1,8 +1,12 @@
 package com.forggygaming.froggygamingserver.service;
 
 import com.forggygaming.froggygamingserver.entity.OrderDetail;
+import com.forggygaming.froggygamingserver.entity.Orders;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
+import com.forggygaming.froggygamingserver.form.AddOrderDetailToOrderForm;
 import com.forggygaming.froggygamingserver.repository.OrderDetailRepo;
+import com.forggygaming.froggygamingserver.repository.OrderRepo;
+import com.forggygaming.froggygamingserver.repository.ProductRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +19,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderDetailServices {
     private final OrderDetailRepo orderDetailRepo;
+
+    private final OrderRepo orderRepo;
+
+    private final ProductRepo productRepo;
 
     public List<OrderDetail> getOrderDetails() {
         return orderDetailRepo.findAll();
@@ -38,15 +46,26 @@ public class OrderDetailServices {
     public ResponseEntity<ResponseObject> updateOrderDetailById(Long id, OrderDetail orderDetail) {
         OrderDetail orderDetailUpdate = orderDetailRepo.findOrderDetailById(id);
         if (orderDetailUpdate == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "This order detail is not exists !", ""));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "This order detail is not exists !", id));
         }
         orderDetailUpdate.setUpdatedAt(LocalDate.now());
         orderDetailUpdate.setQuantity(orderDetail.getQuantity());
-        orderDetailUpdate.setAddress(orderDetailUpdate.getAddress());
+        orderDetailUpdate.setAddress(orderDetail.getAddress());
         orderDetailUpdate.setPrice(orderDetail.getPrice());
         orderDetailUpdate.setOrder(orderDetail.getOrder());
-        orderDetailUpdate.setProduct(orderDetail.getProduct());
         orderDetailRepo.save(orderDetailUpdate);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Update successfully", orderDetailUpdate));
+    }
+
+    public ResponseEntity<ResponseObject> addOrderDetailToOrder(AddOrderDetailToOrderForm form) {
+        Orders order = orderRepo.findOrderById(form.getOrderId());
+        OrderDetail orderDetail = orderDetailRepo.findOrderDetailById(form.getOrderDetailId());
+        if(order == null || orderDetail == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not found", ""));
+        }
+        order.setUpdatedAt(LocalDate.now());
+        order.addOrderDetail(orderDetail);
+        orderRepo.save(order);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Update successfully", order));
     }
 }

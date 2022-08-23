@@ -2,6 +2,7 @@ package com.forggygaming.froggygamingserver.controller;
 
 import com.forggygaming.froggygamingserver.entity.OrderDetail;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
+import com.forggygaming.froggygamingserver.form.AddOrderDetailToOrderForm;
 import com.forggygaming.froggygamingserver.service.OrderDetailServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +36,9 @@ public class OrderDetailController {
         return orderDetailServices.updateOrderDetailById(id, orderDetail);
     }
 
+    @PostMapping("/addtoorder")
+    public ResponseEntity<ResponseObject> addOrderDetailToOrder(@RequestBody AddOrderDetailToOrderForm form) {
+        return orderDetailServices.addOrderDetailToOrder(form);
+    }
 
 }

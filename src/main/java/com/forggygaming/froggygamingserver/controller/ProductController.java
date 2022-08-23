@@ -4,6 +4,7 @@ import com.forggygaming.froggygamingserver.entity.Product;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.form.AddProductToBrandForm;
 import com.forggygaming.froggygamingserver.form.AddProductToCategoryForm;
+import com.forggygaming.froggygamingserver.form.AddProductToOrderDetailForm;
 import com.forggygaming.froggygamingserver.form.DeleteProductDetailInProductForm;
 import com.forggygaming.froggygamingserver.service.ProductServices;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,11 @@ public class ProductController {
     @PostMapping("/addtobrand")
     public ResponseEntity<ResponseObject> addToBrand(@RequestBody AddProductToBrandForm form) {
         return productServices.addToBrand(form);
+    }
+
+    @PostMapping("/addtoorderdetail")
+    public ResponseEntity<ResponseObject> addProductToOrderDetail(@RequestBody AddProductToOrderDetailForm form) {
+        return productServices.addToOrderDetail(form);
     }
 
     @PostMapping("/deleteproductdetail/{id}")

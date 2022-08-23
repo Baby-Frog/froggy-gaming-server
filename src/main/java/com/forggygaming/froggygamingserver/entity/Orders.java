@@ -1,5 +1,6 @@
 package com.forggygaming.froggygamingserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +28,12 @@ public class Orders {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "order")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderDetail> orderDetails;
+
+    public void addOrderDetail(OrderDetail orderDetail) {
+        orderDetail.setOrder(this);
+        orderDetails.add(orderDetail);
+    }
 }

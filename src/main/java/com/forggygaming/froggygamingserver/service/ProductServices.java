@@ -3,10 +3,8 @@ package com.forggygaming.froggygamingserver.service;
 import com.forggygaming.froggygamingserver.entity.*;
 import com.forggygaming.froggygamingserver.form.AddProductToBrandForm;
 import com.forggygaming.froggygamingserver.form.AddProductToCategoryForm;
-import com.forggygaming.froggygamingserver.repository.BrandRepo;
-import com.forggygaming.froggygamingserver.repository.CategoryRepo;
-import com.forggygaming.froggygamingserver.repository.ProductDetailRepo;
-import com.forggygaming.froggygamingserver.repository.ProductRepo;
+import com.forggygaming.froggygamingserver.form.AddProductToOrderDetailForm;
+import com.forggygaming.froggygamingserver.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,7 @@ public class ProductServices {
     private final ProductRepo productRepo;
     private final CategoryRepo categoryRepo;
     private final BrandRepo brandRepo;
-
+    private final OrderDetailRepo orderDetailRepo;
     private final ProductDetailRepo productDetailRepo;
     public List<Product> getProducts() {
         return productRepo.findAll();
@@ -58,6 +56,11 @@ public class ProductServices {
         productUpdate.setProName(product.getProName());
         productUpdate.setProDesc(product.getProDesc());
         productUpdate.setProPrice(product.getProPrice());
+        productUpdate.setOrderDetail(product.getOrderDetail());
+        productUpdate.setProductDetails(product.getProductDetails());
+        productUpdate.setCategory(product.getCategory());
+        productUpdate.setBrand(product.getBrand());
+        productUpdate.setImages(product.getImages());
         productUpdate.setUpdatedAt(LocalDate.now());
         productRepo.save(productUpdate);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", productUpdate));
@@ -88,6 +91,18 @@ public class ProductServices {
     }
 
 
+    public ResponseEntity<ResponseObject> addToOrderDetail(AddProductToOrderDetailForm form) {
+        OrderDetail orderDetail = orderDetailRepo.findOrderDetailById(form.getOrderDetailId());
+        Product product = productRepo.findProductByProName(form.getProName());
+        if (product == null || orderDetail == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists", null));
+        }
+        orderDetail.addProduct(product);
+        orderDetail.setUpdatedAt(LocalDate.now());
+        orderDetailRepo.save(orderDetail);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", orderDetail));
+    }
+
     public ResponseEntity<ResponseObject> removeProductDetail(Long id, Long productDetailId) {
         Product product = productRepo.findProductByProId(id);
         ProductDetail productDetail = productDetailRepo.findProductDetailById(productDetailId);
@@ -102,4 +117,5 @@ public class ProductServices {
 
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
     }
+
 }

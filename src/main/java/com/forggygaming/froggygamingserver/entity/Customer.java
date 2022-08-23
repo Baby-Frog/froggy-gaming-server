@@ -1,5 +1,6 @@
 package com.forggygaming.froggygamingserver.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private Long cusPhoneNumber;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String cusPassword;
     private String cusAvatarPath;

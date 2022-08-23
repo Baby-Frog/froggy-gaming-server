@@ -32,8 +32,10 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
     private List<ProductDetail> productDetails;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
-    private List<OrderDetail> orderDetails;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_detail_id")
+    private OrderDetail orderDetail;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
