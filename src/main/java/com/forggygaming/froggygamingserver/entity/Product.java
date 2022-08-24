@@ -21,7 +21,7 @@ public class Product {
     @Column(nullable = false)
     private Long proId;
     private String proName;
-    private Double ProPrice;
+    private Double proPrice;
     private String proDesc;
     private LocalDate createdAt;
     private LocalDate updatedAt;

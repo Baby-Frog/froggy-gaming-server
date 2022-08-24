@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/orderdetail")
+@RequestMapping("api/v1/order-detail")
 public class OrderDetailController {
     private final OrderDetailServices orderDetailServices;
 
@@ -36,7 +36,7 @@ public class OrderDetailController {
         return orderDetailServices.updateOrderDetailById(id, orderDetail);
     }
 
-    @PostMapping("/addtoorder")
+    @PostMapping("/add-to-order")
     public ResponseEntity<ResponseObject> addOrderDetailToOrder(@RequestBody AddOrderDetailToOrderForm form) {
         return orderDetailServices.addOrderDetailToOrder(form);
     }

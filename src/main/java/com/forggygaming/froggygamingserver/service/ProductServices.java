@@ -118,4 +118,33 @@ public class ProductServices {
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
     }
 
+    public ResponseEntity<ResponseObject> searchProductsByProName(String proName) {
+        List<Product> products = productRepo.findProductsByProName(proName);
+
+        if(products == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> ascSortProductByProName() {
+        List<Product> products = productRepo.ascSortProductsByProName();
+        if(products == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> descSortProductByProName() {
+        List<Product> products = productRepo.descSortProductsByProName();
+        if(products == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> ascSortProductByProPrice() {
+        return null;
+    }
 }

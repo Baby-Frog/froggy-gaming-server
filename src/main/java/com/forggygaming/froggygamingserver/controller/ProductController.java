@@ -39,23 +39,43 @@ public class ProductController {
         return productServices.updateProductById(id, product);
     }
 
-    @PostMapping("/addtocategory")
+    @PostMapping("/add-to-category")
     public ResponseEntity<ResponseObject> addtocategory(@RequestBody AddProductToCategoryForm form) {
         return productServices.addToCategory(form);
     }
 
-    @PostMapping("/addtobrand")
+    @PostMapping("/add-to-brand")
     public ResponseEntity<ResponseObject> addToBrand(@RequestBody AddProductToBrandForm form) {
         return productServices.addToBrand(form);
     }
 
-    @PostMapping("/addtoorderdetail")
+    @PostMapping("/add-to-order-detail")
     public ResponseEntity<ResponseObject> addProductToOrderDetail(@RequestBody AddProductToOrderDetailForm form) {
         return productServices.addToOrderDetail(form);
     }
 
-    @PostMapping("/deleteproductdetail/{id}")
+    @PostMapping("/delete-product-detail/{id}")
     public ResponseEntity<ResponseObject> removeProductDetail(@PathVariable Long id, @RequestBody DeleteProductDetailInProductForm form) {
         return productServices.removeProductDetail(id, form.getProductDetailId());
+    }
+
+    @PostMapping("/search/query={proName}")
+    public ResponseEntity<ResponseObject> searchProductsByProName(@PathVariable String proName) {
+        return productServices.searchProductsByProName(proName);
+    }
+
+    @GetMapping("/sort/asc")
+    public ResponseEntity<ResponseObject> ascSortProductsByProName() {
+        return productServices.ascSortProductByProName();
+    }
+
+    @GetMapping("/sort/desc")
+    public ResponseEntity<ResponseObject> descSortProductsByProName() {
+        return productServices.descSortProductByProName();
+    }
+
+    @GetMapping("/sort-by-price/asc")
+    public ResponseEntity<ResponseObject> ascSortProductsByProPrice() {
+        return productServices.ascSortProductByProPrice();
     }
 }

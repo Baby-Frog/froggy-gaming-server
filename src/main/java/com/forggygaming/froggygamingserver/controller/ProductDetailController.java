@@ -36,7 +36,7 @@ public class ProductDetailController {
         return productDetailServices.updateProductDetailById(id, productDetail);
     }
 
-    @PostMapping("/addtoproduct")
+    @PostMapping("/add-to-product")
     private ResponseEntity<ResponseObject> addProductDetailToProductById(@RequestBody AddProductDetailToProductForm form) {
         return productDetailServices.addProductDetailToProductById(form);
     }

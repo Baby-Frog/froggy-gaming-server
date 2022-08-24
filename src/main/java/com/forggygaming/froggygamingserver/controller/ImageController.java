@@ -36,7 +36,7 @@ public class ImageController {
         return imageServices.updateImageById(id, image);
     }
 
-    @PostMapping("/addtoproduct")
+    @PostMapping("/add-to-product")
     public ResponseEntity<ResponseObject> addtocategory(@RequestBody AddImageToProductForm form) {
         return imageServices.addtoproduct(form);
     }

@@ -36,7 +36,7 @@ public class OrderController {
         return orderServices.deleteOrderById(id);
     }
 
-    @PostMapping("/addtocustomer")
+    @PostMapping("/add-to-customer")
     public ResponseEntity<ResponseObject> addOrderToCustomer(@RequestBody AddOrderToCustomerForm form) {
         return orderServices.addOrderToCustomer(form);
     }
