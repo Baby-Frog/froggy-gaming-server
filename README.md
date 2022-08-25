@@ -13,52 +13,52 @@ GET: http://localhost:8386/api/v1/product
 
 DELETE: http://localhost:8386/api/v1/product/delete/{proId}
 
-{
-"proId": "{(proId}}"
-}
+{ <br>
+"proId": "{(proId}}" <br>
+} <br>
 
 ### Sửa thông tin sản phẩm bằng id
 
 PUT: http://localhost:8386/api/v1/product/update/{proId}
 
-{
-"proId": "{(proId}}"
-}
+{ <br>
+"proId": "{(proId}}" <br>
+} <br>
 
 ### Add sản phẩm vào category
 
 POST: http://localhost:8386/api/v1/product/add-to-category
 
-{
-"proName": "{{proName}}",
-"cateName: "{{cateName}}"
-}
+{ <br>
+"proName": "{{proName}}", <br>
+"cateName: "{{cateName}}" <br>
+} <br>
 
 ### Add sản phẩm vào một brand
 
 POST: http://localhost:8386/api/v1/product/add-to-brand
 
-{
-"proName": "{{proName}}",
-"brandName: "{{brandName}}"
-}
+{ <br>
+"proName": "{{proName}}", <br>
+"brandName: "{{brandName}}" <br>
+} <br>
 
 ### Add sản phẩm vào order-detail
 
 POST: http://localhost:8386/api/v1/product/add-to-order-detail
 
-{
-"proName": "{{proName}}",
-"orderDetailId: "{{orderDetailId}}"
-}
+{ <br>
+"proName": "{{proName}}", <br>
+"orderDetailId: "{{orderDetailId}}" <br>
+} <br>
 
 ### Xóa một chi tiết sản phẩm bằng id
 
 POST: http://localhost:8386/api/v1/product/delete-product-detail/{productDetailId}
 
-{
-"productDetailId": {{productDetailId}}
-}
+{ <br>
+"productDetailId": {{productDetailId}} <br>
+} <br>
 
 ### Tìm danh sách sản phẩm bằng tên
 
