@@ -7,11 +7,11 @@
 
 ### Lấy tất cả các sản phẩm
 
-- GET: http://localhost:8386/api/v1/product
+GET: http://localhost:8386/api/v1/product
 
 ### Xóa sản phẩm bằng id
 
-- DELETE: http://localhost:8386/api/v1/product/delete/{proId}
+DELETE: http://localhost:8386/api/v1/product/delete/{proId}
 
 { <br>
 "proId": "{(proId}}" <br>
@@ -19,7 +19,7 @@
 
 ### Sửa thông tin sản phẩm bằng id
 
-- PUT: http://localhost:8386/api/v1/product/update/{proId}
+PUT: http://localhost:8386/api/v1/product/update/{proId}
 
 { <br>
 "proId": "{(proId}}" <br>
@@ -27,7 +27,7 @@
 
 ### Add sản phẩm vào category
 
-- POST: http://localhost:8386/api/v1/product/add-to-category
+POST: http://localhost:8386/api/v1/product/add-to-category
 
 { <br>
 "proName": "{{proName}}", <br>
@@ -36,7 +36,7 @@
 
 ### Add sản phẩm vào một brand
 
-- POST: http://localhost:8386/api/v1/product/add-to-brand
+POST: http://localhost:8386/api/v1/product/add-to-brand
 
 { <br>
 "proName": "{{proName}}", <br>
@@ -45,7 +45,7 @@
 
 ### Add sản phẩm vào order-detail
 
-- POST: http://localhost:8386/api/v1/product/add-to-order-detail
+POST: http://localhost:8386/api/v1/product/add-to-order-detail
 
 { <br>
 "proName": "{{proName}}", <br>
@@ -54,7 +54,7 @@
 
 ### Xóa một chi tiết sản phẩm bằng id
 
-- POST: http://localhost:8386/api/v1/product/delete-product-detail/{productDetailId}
+POST: http://localhost:8386/api/v1/product/delete-product-detail/{productDetailId}
 
 { <br>
 "productDetailId": {{productDetailId}} <br>
@@ -62,32 +62,32 @@
 
 ### Tìm danh sách sản phẩm bằng tên
 
-- GET: http://localhost:8386/api/v1/product/search/query={proName}
+GET: http://localhost:8386/api/v1/product/search/query={proName}
 
 ### Trả về danh sách sản phẩm được sắp xếp theo tên (thứ tự tăng dần)
 
-- GET: http://localhost:8386/api/v1/product/sort-by-name/asc
+GET: http://localhost:8386/api/v1/product/sort-by-name/asc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo tên (thứ tự giảm dần)
 
-- GET: http://localhost:8386/api/v1/product/sort-by-name/desc
+GET: http://localhost:8386/api/v1/product/sort-by-name/desc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo giá tiền (thứ tự tăng dần)
 
-- GET: http://localhost:8386/api/v1/product/sort-by-price/asc
+GET: http://localhost:8386/api/v1/product/sort-by-price/asc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo giá tiền (thứ tự giảm dần)
 
-- GET: http://localhost:8386/api/v1/product/sort-by-price/desc
+GET: http://localhost:8386/api/v1/product/sort-by-price/desc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo thời gian (thứ tự tăng dần)
 
-- GET: http://localhost:8386/api/v1/product/sort-by-date/asc
+GET: http://localhost:8386/api/v1/product/sort-by-date/asc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo thời gian (thứ tự giảm dần)
 
-- GET: http://localhost:8386/api/v1/product/sort-by-date/desc
+GET: http://localhost:8386/api/v1/product/sort-by-date/desc
 
 ### Trả về danh sách sản phẩm được lọc trong một vùng giá
 
-- GET: http://localhost:8386/api/v1/product/min-price={proPriceMin}&max-price={proPriceMax}
+GET: http://localhost:8386/api/v1/product/min-price={proPriceMin}&max-price={proPriceMax}
