@@ -59,17 +59,17 @@ public class ProductController {
         return productServices.removeProductDetail(id, form.getProductDetailId());
     }
 
-    @PostMapping("/search/query={proName}")
+    @GetMapping("/search/query={proName}")
     public ResponseEntity<ResponseObject> searchProductsByProName(@PathVariable String proName) {
         return productServices.searchProductsByProName(proName);
     }
 
-    @GetMapping("/sort/asc")
+    @GetMapping("/sort-by-name/asc")
     public ResponseEntity<ResponseObject> ascSortProductsByProName() {
         return productServices.ascSortProductByProName();
     }
 
-    @GetMapping("/sort/desc")
+    @GetMapping("/sort-by-name/desc")
     public ResponseEntity<ResponseObject> descSortProductsByProName() {
         return productServices.descSortProductByProName();
     }
@@ -77,5 +77,25 @@ public class ProductController {
     @GetMapping("/sort-by-price/asc")
     public ResponseEntity<ResponseObject> ascSortProductsByProPrice() {
         return productServices.ascSortProductByProPrice();
+    }
+
+    @GetMapping("/sort-by-price/desc")
+    public ResponseEntity<ResponseObject> descSortProductsByProPrice() {
+        return productServices.descSortProductByProPrice();
+    }
+
+    @GetMapping("/sort-by-date/asc")
+    public ResponseEntity<ResponseObject> ascSortProductsByCreatedAt() {
+        return productServices.ascSortProductsByCreatedAt();
+    }
+
+    @GetMapping("/sort-by-date/desc")
+    public ResponseEntity<ResponseObject> descSortProductsByCreatedAt() {
+        return productServices.descSortProductsByCreatedAt();
+    }
+
+    @GetMapping("/min-price={proPriceMin}&max-price={proPriceMax}")
+    public ResponseEntity<ResponseObject> getProductsInProPriceZone(@PathVariable Double proPriceMin, @PathVariable Double proPriceMax) {
+        return productServices.getProductsInProPriceZone(proPriceMin, proPriceMax);
     }
 }

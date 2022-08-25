@@ -121,7 +121,7 @@ public class ProductServices {
     public ResponseEntity<ResponseObject> searchProductsByProName(String proName) {
         List<Product> products = productRepo.findProductsByProName(proName);
 
-        if(products == null) {
+        if(products.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
         }
 
@@ -130,7 +130,7 @@ public class ProductServices {
 
     public ResponseEntity<ResponseObject> ascSortProductByProName() {
         List<Product> products = productRepo.ascSortProductsByProName();
-        if(products == null) {
+        if(products.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
         }
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
@@ -138,13 +138,49 @@ public class ProductServices {
 
     public ResponseEntity<ResponseObject> descSortProductByProName() {
         List<Product> products = productRepo.descSortProductsByProName();
-        if(products == null) {
+        if(products.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
         }
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
     }
 
     public ResponseEntity<ResponseObject> ascSortProductByProPrice() {
-        return null;
+        List<Product> products = productRepo.ascSortProductsByProPrice();
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> descSortProductByProPrice() {
+        List<Product> products = productRepo.descSortProductsByProPrice();
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> ascSortProductsByCreatedAt() {
+        List<Product> products = productRepo.ascSortProductsByCreatedAt();
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> descSortProductsByCreatedAt() {
+        List<Product> products = productRepo.descSortProductsByCreatedAt();
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> getProductsInProPriceZone(Double proPriceMin, Double proPriceMax) {
+        List<Product> products = productRepo.findProductsInProPriceZone(proPriceMin, proPriceMax);
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
     }
 }

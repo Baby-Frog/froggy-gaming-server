@@ -24,4 +24,16 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     @Query("SELECT pro FROM Product pro ORDER BY pro.proPrice ASC")
     List<Product> ascSortProductsByProPrice();
+
+    @Query("SELECT pro FROM Product pro ORDER BY pro.proPrice DESC")
+    List<Product> descSortProductsByProPrice();
+
+    @Query("SELECT pro FROM Product pro ORDER BY pro.createdAt ASC")
+    List<Product> ascSortProductsByCreatedAt();
+
+    @Query("SELECT pro FROM Product pro ORDER BY pro.createdAt DESC ")
+    List<Product> descSortProductsByCreatedAt();
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proPrice >= ?1 AND pro.proPrice <= ?2")
+    List<Product> findProductsInProPriceZone(Double proPriceMin, Double proPriceMax);
 }
