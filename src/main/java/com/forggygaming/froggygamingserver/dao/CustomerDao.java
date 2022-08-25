@@ -68,32 +68,6 @@ public class CustomerDao {
         return customer;
     }
 
-    public Customer checkLogin(Customer customer) {
-        Session session = sessionFactory.openSession();
-
-        try {
-            session.beginTransaction();
-            //câu lệnh sql
-            String sql = "FROM Customer WHERE (cusEmail=:cusMail OR cusPhoneNumber=:cusPhone) AND( cusPassword=:cusPass)";
-            //truy vấn sql tuỳ biến
-            Query<Customer> query = session.createQuery(sql);
-            //set giá trị (prepareStatement)
-            query.setParameter("cusMail", customer.getCusEmail())
-                    .setParameter("cusPhone",customer.getCusPhoneNumber())
-                    .setParameter("cusPass", customer.getCusPassword());
-            //log kết quả
-            log.info(query.toString());
-            //trả về kết quả duy nhất
-            return query.getSingleResult();
-
-        } catch (Exception e) {
-            log.info(e.getMessage());
-        } finally {
-            session.close();
-        }
-        return null;
-    }
-
     public Customer findByEmail(String email) {
         Session session = sessionFactory.openSession();
         try {

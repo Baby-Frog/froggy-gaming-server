@@ -29,9 +29,6 @@ public class CustomerServices {
         return customerDao.insertCus(customer);
     }
 
-    public Customer checkLogin(Customer customer) {
-        return customerDao.checkLogin(customer);
-    }
 
     public Customer findByEmail(String email) {
         return customerDao.findByEmail(email);

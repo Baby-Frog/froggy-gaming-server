@@ -16,7 +16,7 @@ import java.util.List;
 public class CustomerController {
     private final CustomerServices customerServices;
 
-    @GetMapping
+    @GetMapping()
     public List<Customer> getAllCustomer() {
         return customerServices.getAllCustomer();
     }
@@ -50,16 +50,6 @@ public class CustomerController {
     }
 
 
-    @GetMapping("/login")
-    public ResponseEntity<ResponseObject> checkLogin(@RequestBody Customer customer) {
-        Customer found = customerServices.checkLogin(customer);
-
-        return (found == null) ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                new ResponseObject("Failed", "Username or password invalid", "")
-        ) : ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("Ok", "success", found)
-        );
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseObject> viewProfile(@PathVariable Long id) {

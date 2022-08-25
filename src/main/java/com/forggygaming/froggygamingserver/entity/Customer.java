@@ -21,25 +21,26 @@ public class Customer {
     @Column(updatable = false)
     private Long cusId;
 
-    @Column(nullable = false)
     private String cusFirstname;
 
-    @Column(nullable = false)
     private String cusLastname;
 
-    @Column(nullable = false, unique = true)
+    @Column( unique = true)
     private String cusEmail;
 
-    @Column(nullable = false, unique = true)
+    @Column( unique = true)
     private Long cusPhoneNumber;
 
-    @JsonIgnore
-    @Column(nullable = false)
-    private String cusPassword;
+
     private String cusAvatarPath;
     private String cusAddress;
     private LocalDate createdAt;
     private LocalDate updatedAt;
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private Users users;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customer")
     private List<Orders> orders;
