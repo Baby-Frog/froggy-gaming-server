@@ -14,7 +14,7 @@ GET: http://localhost:8386/api/v1/product
 DELETE: http://localhost:8386/api/v1/product/delete/{proId}
 
 { <br>
-"proId": "{(proId}}" <br>
+"proId": "{{proId}}" <br>
 } <br>
 
 ### Sửa thông tin sản phẩm bằng id
@@ -22,7 +22,7 @@ DELETE: http://localhost:8386/api/v1/product/delete/{proId}
 PUT: http://localhost:8386/api/v1/product/update/{proId}
 
 { <br>
-"proId": "{(proId}}" <br>
+"proId": "{{proId}}" <br>
 } <br>
 
 ### Add sản phẩm vào category
