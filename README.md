@@ -7,7 +7,7 @@
 
 ### Lấy tất cả các sản phẩm
 
-GET: http://localhost:8386/api/v1/product
+- GET: http://localhost:8386/api/v1/product
 
 ### Xóa sản phẩm bằng id
 
