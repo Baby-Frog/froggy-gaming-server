@@ -13,9 +13,6 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Product findProductByProId(Long proId);
 
-    @Query("SELECT pro FROM Product pro WHERE pro.proName LIKE %?1%")
-    List<Product> findProductsByProName(String proName);
-
     @Query("SELECT pro FROM Product pro ORDER BY pro.proName ASC")
     List<Product> ascSortProductsByProName();
 
@@ -36,4 +33,25 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     @Query("SELECT pro FROM Product pro WHERE pro.proPrice >= ?1 AND pro.proPrice <= ?2")
     List<Product> findProductsInProPriceZone(Double proPriceMin, Double proPriceMax);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LIKE %?1%")
+    List<Product> findProductsByProName(String proName);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LiKE %?1% ORDER BY pro.proPrice ASC")
+    List<Product> getProductsListAndAscSortByProPrice(String proName);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LiKE %?1% ORDER BY pro.proPrice DESC")
+    List<Product> getProductsListAndDescSortByProPrice(String proName);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LiKE %?1% ORDER BY pro.createdAt ASC")
+    List<Product> getProductsListAndAscSortByProDate(String proName);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LiKE %?1% ORDER BY pro.createdAt DESC")
+    List<Product> getProductsListAndDescSortByProDate(String proName);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LiKE %?1% ORDER BY pro.proName ASC")
+    List<Product> getProductsListAndAscSortByProName(String proName);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LiKE %?1% ORDER BY pro.proName DESC")
+    List<Product> getProductsListAndDescSortByProName(String proName);
 }

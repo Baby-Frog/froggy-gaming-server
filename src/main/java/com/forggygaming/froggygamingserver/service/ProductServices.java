@@ -183,4 +183,64 @@ public class ProductServices {
         }
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
     }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndAscSortByPrice(String proName) {
+        List<Product> products = productRepo.getProductsListAndAscSortByProPrice(proName);
+
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByPrice(String proName) {
+        List<Product> products = productRepo.getProductsListAndDescSortByProPrice(proName);
+
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndAscSortByDate(String proName) {
+        List<Product> products = productRepo.getProductsListAndAscSortByProDate(proName);
+
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByDate(String proName) {
+        List<Product> products = productRepo.getProductsListAndDescSortByProDate(proName);
+
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndAscSortByName(String proName) {
+        List<Product> products = productRepo.getProductsListAndAscSortByProName(proName);
+
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByName(String proName) {
+        List<Product> products = productRepo.getProductsListAndDescSortByProName(proName);
+
+        if(products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
 }

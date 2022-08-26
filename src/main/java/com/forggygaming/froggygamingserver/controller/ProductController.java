@@ -64,32 +64,32 @@ public class ProductController {
         return productServices.searchProductsByProName(proName);
     }
 
-    @GetMapping("/sort-by-name/asc")
+    @GetMapping("/sort=pro.name&order=asc")
     public ResponseEntity<ResponseObject> ascSortProductsByProName() {
         return productServices.ascSortProductByProName();
     }
 
-    @GetMapping("/sort-by-name/desc")
+    @GetMapping("/sort=pro.name&order=desc")
     public ResponseEntity<ResponseObject> descSortProductsByProName() {
         return productServices.descSortProductByProName();
     }
 
-    @GetMapping("/sort-by-price/asc")
+    @GetMapping("/sort=pro.price&order=asc")
     public ResponseEntity<ResponseObject> ascSortProductsByProPrice() {
         return productServices.ascSortProductByProPrice();
     }
 
-    @GetMapping("/sort-by-price/desc")
+    @GetMapping("/sort=pro.price&order=desc")
     public ResponseEntity<ResponseObject> descSortProductsByProPrice() {
         return productServices.descSortProductByProPrice();
     }
 
-    @GetMapping("/sort-by-date/asc")
+    @GetMapping("/sort=pro.date&order=asc")
     public ResponseEntity<ResponseObject> ascSortProductsByCreatedAt() {
         return productServices.ascSortProductsByCreatedAt();
     }
 
-    @GetMapping("/sort-by-date/desc")
+    @GetMapping("/sort=pro.date&order=desc")
     public ResponseEntity<ResponseObject> descSortProductsByCreatedAt() {
         return productServices.descSortProductsByCreatedAt();
     }
@@ -97,5 +97,33 @@ public class ProductController {
     @GetMapping("/min-price={proPriceMin}&max-price={proPriceMax}")
     public ResponseEntity<ResponseObject> getProductsInProPriceZone(@PathVariable Double proPriceMin, @PathVariable Double proPriceMax) {
         return productServices.getProductsInProPriceZone(proPriceMin, proPriceMax);
+    }
+
+    @GetMapping("/search/query={proName}&sort=pro.price&order=asc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndAscSortByPrice(@PathVariable String proName) {
+        return productServices.searchProductsByNameAndAscSortByPrice(proName);
+    }
+
+    @GetMapping("/search/query={proName}&sort=pro.price&order=desc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByPrice(@PathVariable String proName) {
+        return productServices.searchProductsByNameAndDescSortByPrice(proName);
+    }
+
+    @GetMapping("/search/query={proName}&sort=pro.date&order=asc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndAscSortByDate(@PathVariable String proName) {
+        return productServices.searchProductsByNameAndAscSortByDate(proName);
+    }
+
+    @GetMapping("/search/query={proName}&sort=pro.date&order=desc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByDate(@PathVariable String proName) {
+        return productServices.searchProductsByNameAndDescSortByDate(proName);
+    }
+    @GetMapping("/search/query={proName}&sort=pro.name&order=asc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndAscSortByName(@PathVariable String proName) {
+        return productServices.searchProductsByNameAndAscSortByName(proName);
+    }
+    @GetMapping("/search/query={proName}&sort=pro.name&order=desc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByName(@PathVariable String proName) {
+        return productServices.searchProductsByNameAndDescSortByName(proName);
     }
 }
