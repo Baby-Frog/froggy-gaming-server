@@ -1,7 +1,9 @@
 package com.forggygaming.froggygamingserver.controller;
 
 
+import com.forggygaming.froggygamingserver.entity.Image;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
+import com.forggygaming.froggygamingserver.service.ImageServices;
 import com.forggygaming.froggygamingserver.service.ImgServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,10 +24,19 @@ import java.util.stream.Collectors;
 public class FileUploadController {
     @Autowired
     private ImgServices services;
+    @Autowired
+    private ImageServices imageServices;
     @PostMapping()
     public ResponseEntity<ResponseObject>uploadfile(@RequestParam("file")MultipartFile file){
         try {
             String generatedFileName=services.storeFile(file);
+            if (!generatedFileName.isEmpty()){
+                Image image=new Image();
+
+                image.setImgName(file.getOriginalFilename());
+                image.setImgPath("http://localhost:8386/api/v1/fileupload/file/"+file.getOriginalFilename());
+                imageServices.saveNewImage(image);
+            }
             return ResponseEntity.ok().body(
                     new ResponseObject("ok","upload successfully",generatedFileName));
         } catch (Exception e) {

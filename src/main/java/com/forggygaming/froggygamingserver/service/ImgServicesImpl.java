@@ -1,5 +1,6 @@
 package com.forggygaming.froggygamingserver.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.Resource;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 @Service
 @Slf4j
+
 public class ImgServicesImpl implements ImgServices{
     private final Path storageFolder= Paths.get("uploads");
 
@@ -49,7 +51,7 @@ public class ImgServicesImpl implements ImgServices{
                 throw new RuntimeException("File must be <=5MB");
             }
 //            String fileExtension=FilenameUtils.getExtension(file.getOriginalFilename());
-            String generatedFileName= file.getOriginalFilename();
+            String generatedFileName= file.getOriginalFilename().replace(" ","").replace("-","").replace("(","").replace(")","");
             Path destinationFilePath=this.storageFolder.resolve(Paths.get(generatedFileName)).normalize().toAbsolutePath();
             if (!destinationFilePath.getParent().equals(this.storageFolder.toAbsolutePath())){
                 throw new RuntimeException("Can not store file outside current directory");

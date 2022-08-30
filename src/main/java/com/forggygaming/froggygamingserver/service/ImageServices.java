@@ -1,5 +1,6 @@
 package com.forggygaming.froggygamingserver.service;
 
+import com.forggygaming.froggygamingserver.controller.FileUploadController;
 import com.forggygaming.froggygamingserver.entity.Category;
 import com.forggygaming.froggygamingserver.entity.Image;
 import com.forggygaming.froggygamingserver.entity.Product;
@@ -9,19 +10,29 @@ import com.forggygaming.froggygamingserver.form.AddProductToCategoryForm;
 import com.forggygaming.froggygamingserver.repository.ImageRepo;
 import com.forggygaming.froggygamingserver.repository.ProductRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ImageServices {
     private final ImageRepo imageRepo;
     private final ProductRepo productRepo;
+    private final ImgServices imgServices;
+    private final Path storageFolder= Paths.get("uploads");
 
     public List<Image> getImages() {
         return imageRepo.findAll();
@@ -29,6 +40,7 @@ public class ImageServices {
 
     public ResponseEntity<ResponseObject> saveNewImage(Image image) {
         Image exists = imageRepo.findImageByImgName(image.getImgName());
+
         if (exists != null) {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(new ResponseObject("FALSE", "This image is exists !", exists));
         }
