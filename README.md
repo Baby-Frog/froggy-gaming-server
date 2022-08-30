@@ -64,30 +64,54 @@ POST: http://localhost:8386/api/v1/product/delete-product-detail/{productDetailI
 
 GET: http://localhost:8386/api/v1/product/search/query={proName}
 
-### Trả về danh sách sản phẩm được sắp xếp theo tên (thứ tự tăng dần)
+### Trả về danh sách sản phẩm được sắp xếp theo tên A-Z (thứ tự tăng dần)
 
-GET: http://localhost:8386/api/v1/product/sort-by-name/asc
+GET: http://localhost:8386/api/v1/product/sort=pro.name&order=asc
 
-### Trả về danh sách sản phẩm được sắp xếp theo tên (thứ tự giảm dần)
+### Trả về danh sách sản phẩm được sắp xếp theo tên A-Z (thứ tự giảm dần)
 
-GET: http://localhost:8386/api/v1/product/sort-by-name/desc
+GET: http://localhost:8386/api/v1/product/sort=pro.name&order=desc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo giá tiền (thứ tự tăng dần)
 
-GET: http://localhost:8386/api/v1/product/sort-by-price/asc
+GET: http://localhost:8386/api/v1/product/sort=pro.price&order=asc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo giá tiền (thứ tự giảm dần)
 
-GET: http://localhost:8386/api/v1/product/sort-by-price/desc
+GET: http://localhost:8386/api/v1/product/sort=pro.price&order=desc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo thời gian (thứ tự tăng dần)
 
-GET: http://localhost:8386/api/v1/product/sort-by-date/asc
+GET: http://localhost:8386/api/v1/product/sort=pro.date&order=asc
 
 ### Trả về danh sách sản phẩm được sắp xếp theo thời gian (thứ tự giảm dần)
 
-GET: http://localhost:8386/api/v1/product/sort-by-date/desc
+GET: http://localhost:8386/api/v1/product/sort=pro.date&order=desc
 
 ### Trả về danh sách sản phẩm được lọc trong một vùng giá
 
 GET: http://localhost:8386/api/v1/product/min-price={proPriceMin}&max-price={proPriceMax}
+
+### Trả về danh sách sản phẩm được tìm bằng tên và sắp xếp theo giá (thứ tự tăng dần)
+
+GET: http://localhost:8386/api/v1/product/search/query={proName}&sort=pro.price&order=asc
+
+### Trả về danh sách sản phẩm được tìm bằng tên và sắp xếp theo giá (thứ tự giảm dần)
+
+GET: http://localhost:8386/api/v1/product/search/query={proName}&sort=pro.price&order=desc
+
+### Trả về danh sách sản phẩm được tìm bằng tên và sắp xếp theo thời gian (thứ tự tăng dần)
+
+GET: http://localhost:8386/api/v1/product/search/query={proName}&sort=pro.date&order=asc
+
+### Trả về danh sách sản phẩm được tìm bằng tên và sắp xếp theo thời gian (thứ tự giảm dần)
+
+GET: http://localhost:8386/api/v1/product/search/query={proName}&sort=pro.date&order=desc
+
+### Trả về danh sách sản phẩm được tìm bằng tên và sắp xếp theo tên A-Z (thứ tự tăng dần)
+
+GET: http://localhost:8386/api/v1/product/search/query={proName}&sort=pro.name&order=asc
+
+### Trả về danh sách sản phẩm được tìm bằng tên và sắp xếp theo tên A-Z (thứ tự giảm dần)
+
+GET: http://localhost:8386/api/v1/product/search/query={proName}&sort=pro.name&order=desc
