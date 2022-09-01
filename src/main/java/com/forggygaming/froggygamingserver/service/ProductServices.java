@@ -6,6 +6,9 @@ import com.forggygaming.froggygamingserver.form.AddProductToCategoryForm;
 import com.forggygaming.froggygamingserver.form.AddProductToOrderDetailForm;
 import com.forggygaming.froggygamingserver.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,8 +25,10 @@ public class ProductServices {
     private final BrandRepo brandRepo;
     private final OrderDetailRepo orderDetailRepo;
     private final ProductDetailRepo productDetailRepo;
-    public List<Product> getProducts() {
-        return productRepo.findAll();
+
+    public Page<Product> getProducts(int page) {
+        Pageable pageable = PageRequest.of(page - 1, 12);
+        return productRepo.findAll(pageable);
     }
 
     public ResponseEntity<ResponseObject> saveNewProduct(Product product) {
@@ -241,6 +246,32 @@ public class ProductServices {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
         }
 
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> getProduct(Long id) {
+        Product exists = productRepo.findProductByProId(id);
+        if(exists == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", exists));
+    }
+
+    public ResponseEntity<ResponseObject> getProductsByCateId(Long cateId) {
+        Category category = categoryRepo.findCategoryByCateId(cateId);
+        if (category == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        List<Product> products = productRepo.productListByCateId(cateId);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> getProductsByBrandId(Long brandId) {
+        Brand brand = brandRepo.findBrandById(brandId);
+        if (brand == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
+        }
+        List<Product> products = productRepo.productListByBrandId(brandId);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
     }
 }

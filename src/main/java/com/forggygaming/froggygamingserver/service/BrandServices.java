@@ -28,6 +28,7 @@ public class BrandServices {
         }
         brand.setCreatedAt(LocalDate.now());
         brand.setUpdatedAt(LocalDate.now());
+        brandRepo.save(brand);
         return ResponseEntity.ok().body(new ResponseObject("OK", "successfully", brand));
     }
 

@@ -1,6 +1,7 @@
 package com.forggygaming.froggygamingserver.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,9 @@ public class Brand {
     private String brandName;
     private LocalDate createdAt;
     private LocalDate updatedAt;
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "brand")
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "brand")
     private List<Product> products;
 
     public void addProduct(Product product) {

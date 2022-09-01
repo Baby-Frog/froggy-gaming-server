@@ -23,7 +23,8 @@ public class Category {
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "category")
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "category")
     private List<Product> products;
 
     public void addProduct(Product product) {

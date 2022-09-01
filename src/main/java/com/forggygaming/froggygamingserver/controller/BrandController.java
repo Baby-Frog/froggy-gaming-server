@@ -20,7 +20,7 @@ public class BrandController {
         return brandServices.getBrands();
     }
 
-    @PostMapping(value = "/save",  consumes = {"application/json"})
+    @PostMapping("/save")
     public ResponseEntity<ResponseObject> saveNewBrand(@RequestBody Brand brand) {
         return brandServices.saveNewBrand(brand);
     }

@@ -1,6 +1,8 @@
 package com.forggygaming.froggygamingserver.repository;
 
 import com.forggygaming.froggygamingserver.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,6 +11,9 @@ import java.util.List;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Long> {
+    @Override
+    Page<Product> findAll(Pageable pageable);
+
     Product findProductByProName(String proName);
 
     Product findProductByProId(Long proId);
@@ -54,4 +59,10 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     @Query("SELECT pro FROM Product pro WHERE pro.proName LiKE %?1% ORDER BY pro.proName DESC")
     List<Product> getProductsListAndDescSortByProName(String proName);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.category.cateId = ?1")
+    List<Product> productListByCateId(Long cateId);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.brand.id = ?1")
+    List<Product> productListByBrandId(Long brandId);
 }

@@ -8,10 +8,9 @@ import com.forggygaming.froggygamingserver.form.AddProductToOrderDetailForm;
 import com.forggygaming.froggygamingserver.form.DeleteProductDetailInProductForm;
 import com.forggygaming.froggygamingserver.service.ProductServices;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/product")
@@ -19,9 +18,14 @@ import java.util.List;
 public class ProductController {
     private final ProductServices productServices;
 
-    @GetMapping
-    public List<Product> getProducts() {
-        return productServices.getProducts();
+    @GetMapping("/page={page}")
+    public Page<Product> getProducts(@PathVariable Integer page) {
+        return productServices.getProducts(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseObject> getProductById(@PathVariable Long id) {
+        return productServices.getProduct(id);
     }
 
     @PostMapping("/save")
@@ -125,5 +129,15 @@ public class ProductController {
     @GetMapping("/search/query={proName}&sort=pro.name&order=desc")
     public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByName(@PathVariable String proName) {
         return productServices.searchProductsByNameAndDescSortByName(proName);
+    }
+
+    @GetMapping("/products&cate-id={cateId}")
+    public ResponseEntity<ResponseObject> getProductByCateId(@PathVariable Long cateId) {
+        return productServices.getProductsByCateId(cateId);
+    }
+
+    @GetMapping("/products&brand-id={brandId}")
+    public ResponseEntity<ResponseObject> getProductByBrandId(@PathVariable Long brandId) {
+        return productServices.getProductsByBrandId(brandId);
     }
 }
