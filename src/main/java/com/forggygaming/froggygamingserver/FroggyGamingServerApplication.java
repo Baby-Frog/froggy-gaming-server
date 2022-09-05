@@ -13,10 +13,7 @@ public class FroggyGamingServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(FroggyGamingServerApplication.class, args);
     }
-//    @Bean
-//    PasswordEncoder passwordEncoder(){
-//        return new BCryptPasswordEncoder() ;
-//    }
+
 //    @Bean
 //    CommandLineRunner run(UserServices userServices){
 //        return args -> {

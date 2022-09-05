@@ -23,16 +23,21 @@ public class BrandController {
     }
 
     @PostMapping(value = "/save",  consumes = {"application/json"})
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> saveNewBrand(@RequestBody Brand brand) {
         return brandServices.saveNewBrand(brand);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<ResponseObject> updateBrandById(@PathVariable Long id, @RequestBody Brand brand) {
         return brandServices.updateBrandById(id, brand);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<ResponseObject> deleteBrandById(@PathVariable Long id) {
         return brandServices.deleteBrandById(id);
     }
