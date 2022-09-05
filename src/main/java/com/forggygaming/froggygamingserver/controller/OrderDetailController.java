@@ -6,6 +6,7 @@ import com.forggygaming.froggygamingserver.form.AddOrderDetailToOrderForm;
 import com.forggygaming.froggygamingserver.service.OrderDetailServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,16 +23,22 @@ public class OrderDetailController {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+
     public ResponseEntity<ResponseObject> saveNewOrderDetail(@RequestBody OrderDetail orderDetail) {
         return orderDetailServices.saveNewOrderDetail(orderDetail);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+
     public ResponseEntity<ResponseObject> deleteOrderDetailById(@PathVariable Long id) {
         return orderDetailServices.deleteOrderDetailById(id);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+
     public ResponseEntity<ResponseObject> updateOrderDetailById(@PathVariable Long id, @RequestBody OrderDetail orderDetail) {
         return orderDetailServices.updateOrderDetailById(id, orderDetail);
     }

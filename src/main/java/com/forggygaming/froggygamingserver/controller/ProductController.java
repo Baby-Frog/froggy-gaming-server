@@ -8,9 +8,12 @@ import com.forggygaming.froggygamingserver.form.AddProductToOrderDetailForm;
 import com.forggygaming.froggygamingserver.form.DeleteProductDetailInProductForm;
 import com.forggygaming.froggygamingserver.service.ProductServices;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.security.PermitAll;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/product")
@@ -18,27 +21,27 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     private final ProductServices productServices;
 
-    @GetMapping("/page={page}")
-    public Page<Product> getProducts(@PathVariable Integer page) {
-        return productServices.getProducts(page);
-    }
+    @GetMapping
+    @PermitAll
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseObject> getProductById(@PathVariable Long id) {
-        return productServices.getProduct(id);
+    public List<Product> getProducts() {
+        return productServices.getProducts();
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> saveNewProduct(@RequestBody Product product) {
         return productServices.saveNewProduct(product);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> deleteProductById(@PathVariable Long id) {
         return productServices.deleteProductById(id);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> updateProductById(@PathVariable Long id, @RequestBody Product product) {
         return productServices.updateProductById(id, product);
     }
@@ -129,15 +132,5 @@ public class ProductController {
     @GetMapping("/search/query={proName}&sort=pro.name&order=desc")
     public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByName(@PathVariable String proName) {
         return productServices.searchProductsByNameAndDescSortByName(proName);
-    }
-
-    @GetMapping("/products&cate-id={cateId}")
-    public ResponseEntity<ResponseObject> getProductByCateId(@PathVariable Long cateId) {
-        return productServices.getProductsByCateId(cateId);
-    }
-
-    @GetMapping("/products&brand-id={brandId}")
-    public ResponseEntity<ResponseObject> getProductByBrandId(@PathVariable Long brandId) {
-        return productServices.getProductsByBrandId(brandId);
     }
 }
