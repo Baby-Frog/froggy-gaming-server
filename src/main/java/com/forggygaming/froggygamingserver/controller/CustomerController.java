@@ -1,6 +1,8 @@
 package com.forggygaming.froggygamingserver.controller;
 
+import com.forggygaming.froggygamingserver.entity.Customer;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
+import com.forggygaming.froggygamingserver.service.CustomerServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
