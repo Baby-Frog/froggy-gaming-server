@@ -19,6 +19,9 @@ public class Product {
     private Long proId;
     private String proName;
     private Double proPrice;
+
+    @Lob
+    @Column(length = 999999999)
     private String proDesc;
     private Boolean proStatus;
     private LocalDate createdAt;
