@@ -1,17 +1,11 @@
 package com.forggygaming.froggygamingserver;
 
-import com.forggygaming.froggygamingserver.entity.Customer;
-import com.forggygaming.froggygamingserver.entity.Role;
-import com.forggygaming.froggygamingserver.entity.Users;
 //import com.forggygaming.froggygamingserver.service.UserServices;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 
 @SpringBootApplication
 public class FroggyGamingServerApplication {

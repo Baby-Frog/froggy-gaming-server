@@ -1,6 +1,5 @@
 package com.forggygaming.froggygamingserver.service;
 
-import com.forggygaming.froggygamingserver.entity.Customer;
 import com.forggygaming.froggygamingserver.entity.Orders;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.form.AddOrderToCustomerForm;
