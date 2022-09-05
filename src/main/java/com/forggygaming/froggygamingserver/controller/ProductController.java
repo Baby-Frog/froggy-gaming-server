@@ -8,6 +8,7 @@ import com.forggygaming.froggygamingserver.form.AddProductToOrderDetailForm;
 import com.forggygaming.froggygamingserver.form.DeleteProductDetailInProductForm;
 import com.forggygaming.froggygamingserver.service.ProductServices;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,8 @@ public class ProductController {
     @GetMapping
     @PermitAll
 
-    public List<Product> getProducts() {
-        return productServices.getProducts();
+    public Page<Product> getProducts(int page) {
+        return productServices.getProducts(page);
     }
 
     @PostMapping("/save")

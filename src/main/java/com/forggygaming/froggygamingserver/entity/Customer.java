@@ -46,7 +46,7 @@ public class Customer {
 
     @ManyToMany(fetch = EAGER)
 //    @JoinTable(name = "customer_roles",joinColumns = @JoinColumn(name = "customer_cus_id"),inverseJoinColumns = @JoinColumn(name = "roles_id"))
-    @JoinColumn(name = "pk_customer_roles",referencedColumnName = "id")
+//    @JoinColumn(name = "pk_customer_roles",referencedColumnName = "id")
     private Collection<Role> roles = new ArrayList<>();
 
     @OneToMany( cascade = CascadeType.ALL, mappedBy = "customer")
