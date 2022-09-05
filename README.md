@@ -3,6 +3,12 @@
 @author: Minh đẹp trai <br/>
 @author: Việt đẹp trai
 
+##Json web token
+Lần đầu run code thì mở appication ra ![image](https://user-images.githubusercontent.com/88840717/188499912-64f5fac6-a230-4063-9eef-057722ef31b7.png)
+tăt comment trong đó rồi mới run chạy xong lần đầu thì comment lại 
+t k xoá nó đi vì ở đó lưu acc USER & ADMIN
+từ mai login phải có username password r nha các bro
+
 ## Product
 
 ### Lấy tất cả các sản phẩm
