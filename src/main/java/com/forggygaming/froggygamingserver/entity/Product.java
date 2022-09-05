@@ -20,6 +20,7 @@ public class Product {
     private String proName;
     private Double proPrice;
     private String proDesc;
+    private Boolean proStatus;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
