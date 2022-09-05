@@ -9,8 +9,10 @@ import com.forggygaming.froggygamingserver.form.DeleteProductDetailInProductForm
 import com.forggygaming.froggygamingserver.service.ProductServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 @RestController
@@ -20,21 +22,26 @@ public class ProductController {
     private final ProductServices productServices;
 
     @GetMapping
+    @PermitAll
+
     public List<Product> getProducts() {
         return productServices.getProducts();
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> saveNewProduct(@RequestBody Product product) {
         return productServices.saveNewProduct(product);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> deleteProductById(@PathVariable Long id) {
         return productServices.deleteProductById(id);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> updateProductById(@PathVariable Long id, @RequestBody Product product) {
         return productServices.updateProductById(id, product);
     }
