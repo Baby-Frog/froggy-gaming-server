@@ -66,6 +66,7 @@ public class ProductServices {
         productUpdate.setCategory(product.getCategory());
         productUpdate.setBrand(product.getBrand());
         productUpdate.setImages(product.getImages());
+        productUpdate.setProStatus(product.getProStatus());
         productUpdate.setUpdatedAt(LocalDate.now());
         productRepo.save(productUpdate);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", productUpdate));
