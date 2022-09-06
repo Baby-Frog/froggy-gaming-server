@@ -43,6 +43,7 @@ public class ProductDetailController {
     }
 
     @PostMapping("/add-to-product")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private ResponseEntity<ResponseObject> addProductDetailToProductById(@RequestBody AddProductDetailToProductForm form) {
         return productDetailServices.addProductDetailToProductById(form);
     }

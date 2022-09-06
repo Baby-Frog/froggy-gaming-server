@@ -19,8 +19,7 @@ public class Product {
     @Column(nullable = false)
     private Long proId;
     private String proName;
-    private Double proPrice;
-
+    private Long proPrice;
     @Lob
     @Column(length = 999999999)
     private String proDesc;

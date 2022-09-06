@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 //api/auth/** cho đăng ký và đăng nhập không cần check đã đăng nhập hay chưa
 
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/**","/api/v1/fileupload/**","/api/v1/product/search/**").permitAll()
                 //.antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 //        http.authorizeRequests().antMatchers("/api/v1/customer/**").hasAnyAuthority("ROLE_USER");

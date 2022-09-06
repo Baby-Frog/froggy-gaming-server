@@ -18,15 +18,16 @@ public class ProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
-    private Long id;
+    private Long productid;
     private String model;
     private String connect;
-    private int age;
-    private int weight;
+    private String age;
+    private String weight;
     private String compatible;
     private String size;
     private String cable;
     private String color;
+    private String led;
     private String accessories;
     private String layout;
     private String specialFeature;

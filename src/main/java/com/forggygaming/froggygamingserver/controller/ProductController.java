@@ -21,12 +21,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductServices productServices;
-
-    @GetMapping
     @PermitAll
-
-    public Page<Product> getProducts(int page) {
+    @GetMapping("/page={page}")
+    public Page<Product> getProducts(@PathVariable Integer page) {
         return productServices.getProducts(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseObject> getProductById(@PathVariable Long id) {
+        return productServices.getProduct(id);
     }
 
     @PostMapping("/save")
@@ -48,21 +51,25 @@ public class ProductController {
     }
 
     @PostMapping("/add-to-category")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> addtocategory(@RequestBody AddProductToCategoryForm form) {
         return productServices.addToCategory(form);
     }
 
     @PostMapping("/add-to-brand")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> addToBrand(@RequestBody AddProductToBrandForm form) {
         return productServices.addToBrand(form);
     }
 
     @PostMapping("/add-to-order-detail")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> addProductToOrderDetail(@RequestBody AddProductToOrderDetailForm form) {
         return productServices.addToOrderDetail(form);
     }
 
     @PostMapping("/delete-product-detail/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> removeProductDetail(@PathVariable Long id, @RequestBody DeleteProductDetailInProductForm form) {
         return productServices.removeProductDetail(id, form.getProductDetailId());
     }

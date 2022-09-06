@@ -28,7 +28,7 @@ public class FileUploadController {
     @Autowired
     private ImageServices imageServices;
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<ResponseObject>uploadfile(@RequestParam("file")MultipartFile file){
         try {
             String generatedFileName=services.storeFile(file);
@@ -49,7 +49,7 @@ public class FileUploadController {
 
     }
     @GetMapping("/file/{fileName:.+}")
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+
     public ResponseEntity<byte[]>readDetailFile(@PathVariable String fileName){
         try {
             byte[]bytes=services.readFileContent(fileName);
@@ -59,7 +59,7 @@ public class FileUploadController {
         }
     }
     @GetMapping()
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<ResponseObject>getUpload(){
         try {
             List<String> urls=services.loadAll().map(path -> {

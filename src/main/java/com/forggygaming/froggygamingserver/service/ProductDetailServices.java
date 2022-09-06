@@ -46,6 +46,7 @@ public class ProductDetailServices {
         productDetailUpdate.setSize(productDetail.getSize());
         productDetailUpdate.setCable(productDetail.getCable());
         productDetailUpdate.setColor(productDetail.getColor());
+        productDetailUpdate.setLed(productDetail.getLed());
         productDetailUpdate.setAccessories(productDetail.getAccessories());
         productDetailUpdate.setLayout(productDetail.getLayout());
         productDetailUpdate.setSpecialFeature(productDetail.getSpecialFeature());
