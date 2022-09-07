@@ -18,7 +18,7 @@ public class ImageController {
     private final ImageServices imageServices;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+
     public List<Image> getImages() {
         return imageServices.getImages();
     }
