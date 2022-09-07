@@ -56,7 +56,12 @@ public class CustomerServices {
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return customerRepo.save(customer);
     }
-
+    public Customer registerUser(Customer customer){
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        Role role=roleRepo.findByRoleName("ROLE_USER");
+        customer.getRoles().add(role);
+        return customerRepo.save(customer);
+    }
     public Role saveRole(Role roleName){
         log.info("Saving role..."+roleName);
        return roleRepo.save(roleName);

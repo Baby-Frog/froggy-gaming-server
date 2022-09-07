@@ -1,15 +1,18 @@
 package com.forggygaming.froggygamingserver.controller;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.forggygaming.froggygamingserver.dto.JwtResponse;
 import com.forggygaming.froggygamingserver.dto.LoginRequest;
+import com.forggygaming.froggygamingserver.entity.Customer;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.repository.CustomerRepo;
 import com.forggygaming.froggygamingserver.repository.RoleRepo;
 //import com.forggygaming.froggygamingserver.repository.UserRepo;
 import com.forggygaming.froggygamingserver.security.jwt.JwtUtils;
 import com.forggygaming.froggygamingserver.service.CustomerDetailImpl;
+import com.forggygaming.froggygamingserver.service.CustomerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,8 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
         @Autowired
         AuthenticationManager authenticationManager;
+        @Autowired
+        CustomerServices customerServices;
         @Autowired
         CustomerRepo customerRepo;
         @Autowired
@@ -62,5 +67,13 @@ public class LoginController {
                     customerDetail.getUsername(),
                     customerDetail.getPassword(),
                     roles)));
+        }
+        @PostMapping("/signup")
+        public ResponseEntity<ResponseObject>registerUser( @RequestBody Customer customer){
+            Customer found=customerRepo.findByUsername(customer.getUsername());
+            return (found==null)?ResponseEntity.ok()
+                    .body(new ResponseObject("OK","Register successfully",customerServices.registerUser(customer)))
+                  :ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
+                    .body(new ResponseObject("Failed","username does exist!!!",new ArrayList<>()));
         }
 }
