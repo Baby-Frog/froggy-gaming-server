@@ -17,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.GET;
+
 
 @Configuration
 @EnableWebSecurity
@@ -55,8 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 //api/auth/** cho đăng ký và đăng nhập không cần check đã đăng nhập hay chưa
 
-                .authorizeRequests().antMatchers("/api/auth/**","/api/v1/fileupload/**","/api/v1/product/search/**").permitAll()
-                //.antMatchers("/api/test/**").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                .antMatchers(GET,"/api/v1/product/**","/api/v1/fileupload/**","/api/v1/productdetails/**","/api/v1/brand/**","/api/v1/category/**","/api/v1/image/**").permitAll()
                 .anyRequest().authenticated();
 //        http.authorizeRequests().antMatchers("/api/v1/customer/**").hasAnyAuthority("ROLE_USER");
         // lọc jwt có hợp lệ hay không
