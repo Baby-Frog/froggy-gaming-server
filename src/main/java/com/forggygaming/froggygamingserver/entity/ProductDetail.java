@@ -18,7 +18,7 @@ public class ProductDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false)
-    private Long productid;
+    private Long id;
     private String model;
     private String connect;
     private String age;
