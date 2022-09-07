@@ -46,7 +46,7 @@ public class ProductDetail {
     private LocalDate updatedAt;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
 }

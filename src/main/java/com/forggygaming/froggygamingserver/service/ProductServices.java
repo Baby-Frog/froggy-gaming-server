@@ -63,7 +63,7 @@ public class ProductServices {
         productUpdate.setProDesc(product.getProDesc());
         productUpdate.setProPrice(product.getProPrice());
         productUpdate.setOrderDetail(product.getOrderDetail());
-        productUpdate.setProductDetails(product.getProductDetails());
+        productUpdate.setProductDetail(product.getProductDetail());
         productUpdate.setCategory(product.getCategory());
         productUpdate.setBrand(product.getBrand());
         productUpdate.setImages(product.getImages());
@@ -108,21 +108,6 @@ public class ProductServices {
         orderDetail.setUpdatedAt(LocalDate.now());
         orderDetailRepo.save(orderDetail);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", orderDetail));
-    }
-
-    public ResponseEntity<ResponseObject> removeProductDetail(Long id, Long productDetailId) {
-        Product product = productRepo.findProductByProId(id);
-        ProductDetail productDetail = productDetailRepo.findProductDetailById(productDetailId);
-
-        if(productDetail == null || product == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists", null));
-        }
-
-        product.remoteProductDetail(productDetail);
-        product.setUpdatedAt(LocalDate.now());
-        productRepo.save(product);
-
-        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
     }
 
     public ResponseEntity<ResponseObject> searchProductsByProName(String proName) {

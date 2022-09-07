@@ -30,8 +30,8 @@ public class Product {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
     private List<Image> images;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
-    private List<ProductDetail> productDetails;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private ProductDetail productDetail;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,11 +53,5 @@ public class Product {
 
     public void addProductDetail(ProductDetail productDetail) {
         productDetail.setProduct(this);
-        productDetails.add(productDetail);
-    }
-
-    public void remoteProductDetail(ProductDetail productDetail) {
-        productDetail.setProduct(null);
-        productDetails.remove(productDetail);
     }
 }

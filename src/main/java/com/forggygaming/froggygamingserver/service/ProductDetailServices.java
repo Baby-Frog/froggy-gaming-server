@@ -75,6 +75,7 @@ public class ProductDetailServices {
         }
 
         product.addProductDetail(productDetail);
+        product.setProductDetail(productDetail);
         product.setUpdatedAt(LocalDate.now());
         productRepo.save(product);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Add product detail successfully", product));

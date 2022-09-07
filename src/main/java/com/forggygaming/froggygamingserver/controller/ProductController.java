@@ -68,12 +68,6 @@ public class ProductController {
         return productServices.addToOrderDetail(form);
     }
 
-    @PostMapping("/delete-product-detail/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ResponseObject> removeProductDetail(@PathVariable Long id, @RequestBody DeleteProductDetailInProductForm form) {
-        return productServices.removeProductDetail(id, form.getProductDetailId());
-    }
-
     @GetMapping("/search/query={proName}")
     public ResponseEntity<ResponseObject> searchProductsByProName(@PathVariable String proName) {
         return productServices.searchProductsByProName(proName);
