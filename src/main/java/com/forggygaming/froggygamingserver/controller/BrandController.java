@@ -17,7 +17,7 @@ public class BrandController {
     private final BrandServices brandServices;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+
     public List<Brand> getBrands() {
         return brandServices.getBrands();
     }
