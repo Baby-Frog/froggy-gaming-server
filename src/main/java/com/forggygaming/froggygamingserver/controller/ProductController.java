@@ -135,4 +135,9 @@ public class ProductController {
     public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByName(@PathVariable String proName) {
         return productServices.searchProductsByNameAndDescSortByName(proName);
     }
+
+    @GetMapping("/products&cate-id={cateId}")
+    public ResponseEntity<ResponseObject> getProductsByCateId(@PathVariable Long cateId) {
+        return productServices.getProductsByCateId(cateId);
+    }
 }
