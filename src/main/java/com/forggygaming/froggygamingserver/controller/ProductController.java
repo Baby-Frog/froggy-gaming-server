@@ -5,7 +5,6 @@ import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.form.AddProductToBrandForm;
 import com.forggygaming.froggygamingserver.form.AddProductToCategoryForm;
 import com.forggygaming.froggygamingserver.form.AddProductToOrderDetailForm;
-import com.forggygaming.froggygamingserver.form.DeleteProductDetailInProductForm;
 import com.forggygaming.froggygamingserver.service.ProductServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.PermitAll;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/product")
@@ -68,9 +66,29 @@ public class ProductController {
         return productServices.addToOrderDetail(form);
     }
 
-    @GetMapping("/search/query={proName}")
-    public ResponseEntity<ResponseObject> searchProductsByProName(@PathVariable String proName) {
-        return productServices.searchProductsByProName(proName);
+    @GetMapping("/search/query={proName}&page={page}")
+    public ResponseEntity<ResponseObject> searchProductsByProName(@PathVariable String proName, @PathVariable Integer page) {
+        return productServices.searchProductsByProName(proName, page);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/sort=pro.price&order=asc")
+    public ResponseEntity<ResponseObject> searchProductsByProNameAndAscSortByPrice(@PathVariable String proName, @PathVariable Integer page) {
+        return productServices.searchProductsByProNameAndAscSortByPrice(proName, page);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/sort=pro.price&order=desc")
+    public ResponseEntity<ResponseObject> searchProductsByProNameAndDescSortByPrice(@PathVariable String proName, @PathVariable Integer page) {
+        return productServices.searchProductsByProNameAndDescSortByPrice(proName, page);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/sort=pro.name&order=asc")
+    public ResponseEntity<ResponseObject> searchProductsByProNameAndAscSortByName(@PathVariable String proName, @PathVariable Integer page) {
+        return productServices.searchProductsByProNameAndAscSortByName(proName, page);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/sort=pro.name&order=desc")
+    public ResponseEntity<ResponseObject> searchProductsByProNameAndDescSortByName(@PathVariable String proName, @PathVariable Integer page) {
+        return productServices.searchProductsByProNameAndDescSortByName(proName, page);
     }
 
     @GetMapping("/sort=pro.name&order=asc")
@@ -139,5 +157,10 @@ public class ProductController {
     @GetMapping("/products&cate-id={cateId}")
     public ResponseEntity<ResponseObject> getProductsByCateId(@PathVariable Long cateId) {
         return productServices.getProductsByCateId(cateId);
+    }
+
+    @GetMapping("/products&brand-id={brandId}")
+    public ResponseEntity<ResponseObject> getProductsByBrandId(@PathVariable Long brandId) {
+        return productServices.getProductsByBrandId(brandId);
     }
 }

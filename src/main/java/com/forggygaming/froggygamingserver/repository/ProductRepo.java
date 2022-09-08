@@ -40,7 +40,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     List<Product> findProductsInProPriceZone(Double proPriceMin, Double proPriceMax);
 
     @Query("SELECT pro FROM Product pro WHERE pro.proName LIKE %?1%")
-    List<Product> findProductsByProName(String proName);
+    Page<Product> findProductsByProName(String proName, Pageable pageable);
 
     @Query("SELECT pro FROM Product pro WHERE pro.proName LiKE %?1% ORDER BY pro.proPrice ASC")
     List<Product> getProductsListAndAscSortByProPrice(String proName);
