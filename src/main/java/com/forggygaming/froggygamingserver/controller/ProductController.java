@@ -21,7 +21,7 @@ public class ProductController {
     private final ProductServices productServices;
     @PermitAll
     @GetMapping("/page={page}")
-    public Page<Product> getProducts(@PathVariable Integer page) {
+    public ResponseEntity<ResponseObject> getProducts(@PathVariable Integer page) {
         return productServices.getProducts(page);
     }
 
