@@ -73,5 +73,11 @@ public class FileUploadController {
 
         }
     }
+    @DeleteMapping("/delete/{fileName}")
+    public ResponseEntity<ResponseObject> deleteFile(@PathVariable String fileName){
+        boolean delete= services.deleteFile(fileName);
+        return (delete==true)?ResponseEntity.ok().body(new ResponseObject("ok","success",delete))
+                :ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("failed","can not find file name",delete));
+    }
 
 }

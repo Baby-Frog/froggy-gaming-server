@@ -9,5 +9,5 @@ public interface ImgServices {
     String storeFile(MultipartFile file);
     Stream<Path> loadAll();
     byte[] readFileContent(String fileName);
-    void deleteAllFile();
+    boolean deleteFile(String fileName );
 }

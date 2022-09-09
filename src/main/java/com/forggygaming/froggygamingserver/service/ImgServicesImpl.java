@@ -1,6 +1,5 @@
 package com.forggygaming.froggygamingserver.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.Resource;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -96,7 +96,18 @@ public class ImgServicesImpl implements ImgServices{
     }
 
     @Override
-    public void deleteAllFile() {
+    public boolean deleteFile(String fileName) {
+       try {
+           Path path=storageFolder.resolve(fileName);
+           File file =new File(path.toUri());
+           file.delete();
 
+
+       } catch (Exception e) {
+          log.error("Error: "+e.getMessage() );
+       }
+
+
+        return true;
     }
 }
