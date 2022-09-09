@@ -101,13 +101,14 @@ public class ImgServicesImpl implements ImgServices{
            Path path=storageFolder.resolve(fileName);
            File file =new File(path.toUri());
            file.delete();
-
+           return true;
 
        } catch (Exception e) {
           log.error("Error: "+e.getMessage() );
+          return false;
        }
 
 
-        return true;
+
     }
 }
