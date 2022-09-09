@@ -99,16 +99,18 @@ public class ImgServicesImpl implements ImgServices{
     public boolean deleteFile(String fileName) {
        try {
            Path path=storageFolder.resolve(fileName);
-           File file =new File(path.toUri());
-           file.delete();
-           return true;
-
+           Resource resource=new UrlResource(path.toUri());
+           if (resource.exists()|| resource.isReadable()) {
+               File file = new File(path.toUri());
+               file.delete();
+               return true;
+           } else {
+               log.error("can not find file");
+               return false;
+           }
        } catch (Exception e) {
           log.error("Error: "+e.getMessage() );
           return false;
        }
-
-
-
     }
 }
