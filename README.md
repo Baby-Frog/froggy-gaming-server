@@ -122,8 +122,8 @@ từ mai login phải có username password r nha các bro
 
   GET: http://localhost:8386/api/v1/product/search/query={proName}&sort=pro.name&order=desc 
   
-### Upload ảnh trong project ###
-  GET:  http://localhost:8386/api/v1/fileupload/file/{fileName} <br/>
-  GETALL: http://localhost:8386/api/v1/fileupload/ <br/>
-  UPLOAD(+insert in database):  http://localhost:8386/api/v1/fileupload/ + {Request Body (type)file} <br/>
-  DELETE: http://localhost:8386/api/v1/fileupload/delete/{fileName}
+### ***Upload ảnh trong project*** ###
+  ```GET```:  http://localhost:8386/api/v1/fileupload/file/{fileName} <br/>
+  ```GETALL```: http://localhost:8386/api/v1/fileupload/ <br/>
+  ```UPLOAD(+insert in database)```:  http://localhost:8386/api/v1/fileupload/ + {Request Body (type)file} <br/>
+  ```DELETE```: http://localhost:8386/api/v1/fileupload/delete/{fileName}
