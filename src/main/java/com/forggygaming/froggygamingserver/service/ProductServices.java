@@ -27,6 +27,8 @@ public class ProductServices {
     private final BrandRepo brandRepo;
     private final OrderDetailRepo orderDetailRepo;
 
+    private final ImageRepo imageRepo;
+
     public ResponseEntity<ResponseObject> getProducts(int page) {
         Pageable pageable = PageRequest.of(page - 1, 12);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", productRepo.findAll(pageable)));
@@ -305,5 +307,18 @@ public class ProductServices {
         }
 
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> removeImageInProduct(Long proId, Long imgId) {
+        Product product = productRepo.findProductByProId(proId);
+        Image image = imageRepo.findImageByImgId(imgId);
+
+        if (product == null || image == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", new ArrayList<>()));
+        }
+
+        product.removeImage(image);
+        productRepo.save(product);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
     }
 }

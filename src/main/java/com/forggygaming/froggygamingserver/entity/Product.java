@@ -51,6 +51,11 @@ public class Product {
         images.add(image);
     }
 
+    public void removeImage(Image image) {
+        image.setProduct(null);
+        images.remove(image);
+    }
+
     public void addProductDetail(ProductDetail productDetail) {
         productDetail.setProduct(this);
     }

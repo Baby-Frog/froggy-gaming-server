@@ -163,4 +163,10 @@ public class ProductController {
     public ResponseEntity<ResponseObject> getProductsByBrandId(@PathVariable Long brandId) {
         return productServices.getProductsByBrandId(brandId);
     }
+
+    @PostMapping("/{proId}/remove/image-id={imgId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ResponseObject> removeImageInProduct(@PathVariable Long proId, @PathVariable Long imgId) {
+        return productServices.removeImageInProduct(proId, imgId);
+    }
 }
