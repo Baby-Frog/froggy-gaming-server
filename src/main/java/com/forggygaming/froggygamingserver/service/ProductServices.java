@@ -27,9 +27,9 @@ public class ProductServices {
     private final BrandRepo brandRepo;
     private final OrderDetailRepo orderDetailRepo;
 
-    public Page<Product> getProducts(int page) {
+    public ResponseEntity<ResponseObject> getProducts(int page) {
         Pageable pageable = PageRequest.of(page - 1, 12);
-        return productRepo.findAll(pageable);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", productRepo.findAll(pageable)));
     }
 
     public ResponseEntity<ResponseObject> saveNewProduct(Product product) {
