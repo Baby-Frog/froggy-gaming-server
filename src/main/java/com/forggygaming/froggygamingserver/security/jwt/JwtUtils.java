@@ -26,7 +26,7 @@ public class JwtUtils {
         String access_token=Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getMonth() + jwtExpirationMs+10*60*100))
+                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
         return access_token;
