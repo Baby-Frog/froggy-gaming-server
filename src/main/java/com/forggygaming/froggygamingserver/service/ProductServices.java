@@ -321,4 +321,54 @@ public class ProductServices {
         productRepo.save(product);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
     }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryId(String proName, Integer page, Long cateId) {
+        Pageable pageable = PageRequest.of(page - 1, 12);
+        Page<Product> products = productRepo.findProductsByProNameAndCategory(proName, cateId, pageable);
+
+        if (products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", new ArrayList<>()));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdAscSortByProPrice(String proName, Integer page, Long cateId) {
+        Pageable pageable = PageRequest.of(page - 1, 12, Sort.by("proPrice").ascending());
+        Page<Product> products = productRepo.findProductsByProNameAndCategory(proName, cateId, pageable);
+
+        if (products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", new ArrayList<>()));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdDescSortByProPrice(String proName, Integer page, Long cateId) {
+        Pageable pageable = PageRequest.of(page - 1, 12, Sort.by("proPrice").descending());
+        Page<Product> products = productRepo.findProductsByProNameAndCategory(proName, cateId, pageable);
+
+        if (products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", new ArrayList<>()));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdAscSortByProName(String proName, Integer page, Long cateId) {
+        Pageable pageable = PageRequest.of(page - 1, 12, Sort.by("proName").ascending());
+        Page<Product> products = productRepo.findProductsByProNameAndCategory(proName, cateId, pageable);
+
+        if (products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", new ArrayList<>()));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdDescSortByProName(String proName, Integer page, Long cateId) {
+        Pageable pageable = PageRequest.of(page - 1, 12, Sort.by("proName").descending());
+        Page<Product> products = productRepo.findProductsByProNameAndCategory(proName, cateId, pageable);
+
+        if (products.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", new ArrayList<>()));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
 }

@@ -65,4 +65,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     @Query("SELECT pro FROM Product pro WHERE pro.brand.id = ?1")
     List<Product> productListByBrandId(Long brandId);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LIKE %?1% AND pro.category.cateId = ?2")
+    Page<Product> findProductsByProNameAndCategory(String proName, Long cateId ,Pageable pageable);
 }

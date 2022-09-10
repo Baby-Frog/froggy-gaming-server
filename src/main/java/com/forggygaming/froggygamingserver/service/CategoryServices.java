@@ -4,6 +4,9 @@ import com.forggygaming.froggygamingserver.entity.Category;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.repository.CategoryRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,8 +20,10 @@ import java.util.Optional;
 public class CategoryServices {
     private final CategoryRepo categoryRepo;
 
-    public List<Category> getCategories() {
-        return categoryRepo.findAll();
+    public ResponseEntity<ResponseObject> getCategories(Integer page) {
+        Pageable pageable = PageRequest.of(page - 1, 12);
+        Page<Category> categories = categoryRepo.findAll(pageable);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", categories));
     }
 
     public ResponseEntity<ResponseObject> saveNewCategory(Category category) {

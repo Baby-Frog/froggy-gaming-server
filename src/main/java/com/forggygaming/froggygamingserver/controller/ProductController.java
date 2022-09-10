@@ -169,4 +169,29 @@ public class ProductController {
     public ResponseEntity<ResponseObject> removeImageInProduct(@PathVariable Long proId, @PathVariable Long imgId) {
         return productServices.removeImageInProduct(proId, imgId);
     }
+
+    @GetMapping("/search/query={proName}&page={page}/cate-id={cateId}")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryId(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long cateId) {
+        return productServices.searchProductsByNameAndCategoryId(proName, page, cateId);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/cate-id={cateId}&sort=pro.price&order=asc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdAscSortByProPrice(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long cateId) {
+        return productServices.searchProductsByNameAndCategoryIdAscSortByProPrice(proName, page, cateId);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/cate-id={cateId}&sort=pro.price&order=desc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdDescSortByProPrice(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long cateId) {
+        return productServices.searchProductsByNameAndCategoryIdDescSortByProPrice(proName, page, cateId);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/cate-id={cateId}&sort=pro.name&order=asc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdAscSortByProName(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long cateId) {
+        return productServices.searchProductsByNameAndCategoryIdAscSortByProName(proName, page, cateId);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/cate-id={cateId}&sort=pro.name&order=desc")
+    public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdDescSortByProName(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long cateId) {
+        return productServices.searchProductsByNameAndCategoryIdDescSortByProName(proName, page, cateId);
+    }
 }
