@@ -37,9 +37,12 @@ public class BrandController {
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-
     public ResponseEntity<ResponseObject> deleteBrandById(@PathVariable Long id) {
         return brandServices.deleteBrandById(id);
     }
 
+    @GetMapping("/search/query={brandName}")
+    public ResponseEntity<ResponseObject> searchBrandByBrandName(@PathVariable String brandName) {
+        return brandServices.searchBrandByBrandName(brandName);
+    }
 }

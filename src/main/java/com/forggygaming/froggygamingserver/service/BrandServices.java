@@ -4,6 +4,7 @@ import com.forggygaming.froggygamingserver.entity.Brand;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.repository.BrandRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,13 @@ public class BrandServices {
             return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", id));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "This brand is not exists !", id));
+    }
+
+    public ResponseEntity<ResponseObject> searchBrandByBrandName(String brandName) {
+        List<Brand> brands = brandRepo.searchBrandsByBrandName(brandName);
+        if (brands.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "This brand is not exists !", null));
+        }
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", brands));
     }
 }
