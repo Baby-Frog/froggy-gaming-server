@@ -270,4 +270,22 @@ public class ProductServices {
         Page<Product> products = productRepo.findProductsByProNameAndCategory(proName, cateId, pageable);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
     }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameInProPriceZone(String proName, Integer page, Long proPriceMin, Long proPriceMax) {
+        Pageable pageable = PageRequest.of(page - 1, 12);
+        Page<Product> products = productRepo.productsListByProNameAndProPriceZone(proName, proPriceMin, proPriceMax, pageable);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameAscSortInProPriceZone(String proName, Integer page, Long proPriceMin, Long proPriceMax) {
+        Pageable pageable = PageRequest.of(page - 1, 12, Sort.by("proPrice").ascending());
+        Page<Product> products = productRepo.productsListByProNameAndProPriceZone(proName, proPriceMin, proPriceMax, pageable);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> searchProductsByNameDescSortInProPriceZone(String proName, Integer page, Long proPriceMin, Long proPriceMax) {
+        Pageable pageable = PageRequest.of(page - 1, 12, Sort.by("proPrice").descending());
+        Page<Product> products = productRepo.productsListByProNameAndProPriceZone(proName, proPriceMin, proPriceMax, pageable);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
 }

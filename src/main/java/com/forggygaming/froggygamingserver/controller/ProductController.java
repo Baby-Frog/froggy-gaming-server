@@ -19,6 +19,7 @@ import javax.annotation.security.PermitAll;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductServices productServices;
+
     @PermitAll
     @GetMapping("/page={page}")
     public ResponseEntity<ResponseObject> getProducts(@PathVariable Integer page) {
@@ -145,10 +146,12 @@ public class ProductController {
     public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByDate(@PathVariable String proName) {
         return productServices.searchProductsByNameAndDescSortByDate(proName);
     }
+
     @GetMapping("/search/query={proName}&sort=pro.name&order=asc")
     public ResponseEntity<ResponseObject> searchProductsByNameAndAscSortByName(@PathVariable String proName) {
         return productServices.searchProductsByNameAndAscSortByName(proName);
     }
+
     @GetMapping("/search/query={proName}&sort=pro.name&order=desc")
     public ResponseEntity<ResponseObject> searchProductsByNameAndDescSortByName(@PathVariable String proName) {
         return productServices.searchProductsByNameAndDescSortByName(proName);
@@ -193,5 +196,20 @@ public class ProductController {
     @GetMapping("/search/query={proName}&page={page}/cate-id={cateId}&sort=pro.name&order=desc")
     public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryIdDescSortByProName(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long cateId) {
         return productServices.searchProductsByNameAndCategoryIdDescSortByProName(proName, page, cateId);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}/min-price={proPriceMin}&max-price={proPriceMax}")
+    public ResponseEntity<ResponseObject> searchProductsByNameInProPriceZone(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long proPriceMin, @PathVariable Long proPriceMax) {
+        return productServices.searchProductsByNameInProPriceZone(proName, page, proPriceMin, proPriceMax);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}&sort=pro.price&order=asc/min-price={proPriceMin}&max-price={proPriceMax}")
+    public ResponseEntity<ResponseObject> searchProductsByNameAscSortInProPriceZone(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long proPriceMin, @PathVariable Long proPriceMax) {
+        return productServices.searchProductsByNameAscSortInProPriceZone(proName, page, proPriceMin, proPriceMax);
+    }
+
+    @GetMapping("/search/query={proName}&page={page}&sort=pro.price&order=desc/min-price={proPriceMin}&max-price={proPriceMax}")
+    public ResponseEntity<ResponseObject> searchProductsByNameDescSortInProPriceZone(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long proPriceMin, @PathVariable Long proPriceMax) {
+        return productServices.searchProductsByNameDescSortInProPriceZone(proName, page, proPriceMin, proPriceMax);
     }
 }

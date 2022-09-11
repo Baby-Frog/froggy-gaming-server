@@ -67,5 +67,8 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     List<Product> productListByBrandId(Long brandId);
 
     @Query("SELECT pro FROM Product pro WHERE pro.proName LIKE %?1% AND pro.category.cateId = ?2")
-    Page<Product> findProductsByProNameAndCategory(String proName, Long cateId ,Pageable pageable);
+    Page<Product> findProductsByProNameAndCategory(String proName, Long cateId, Pageable pageable);
+
+    @Query("SELECT pro FROM Product pro WHERE pro.proName LIKE %?1% AND pro.proPrice >= ?2 AND pro.proPrice <= ?3")
+    Page<Product> productsListByProNameAndProPriceZone(String proName, Long proPriceMin, Long proPriceMax, Pageable pageable);
 }
