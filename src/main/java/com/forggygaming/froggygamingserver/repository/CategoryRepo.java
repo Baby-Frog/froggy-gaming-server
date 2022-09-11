@@ -8,10 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepo extends JpaRepository<Category, Long> {
-
-    @Override
-    Page<Category> findAll(Pageable pageable);
-
     Category findCategoryByCateName(String cateName);
 
     Category findCategoryByCateId(Long cateId);

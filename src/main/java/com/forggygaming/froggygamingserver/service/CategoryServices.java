@@ -20,10 +20,8 @@ import java.util.Optional;
 public class CategoryServices {
     private final CategoryRepo categoryRepo;
 
-    public ResponseEntity<ResponseObject> getCategories(Integer page) {
-        Pageable pageable = PageRequest.of(page - 1, 12);
-        Page<Category> categories = categoryRepo.findAll(pageable);
-        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", categories));
+    public ResponseEntity<ResponseObject> getCategories() {
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", categoryRepo.findAll()));
     }
 
     public ResponseEntity<ResponseObject> saveNewCategory(Category category) {

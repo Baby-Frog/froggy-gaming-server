@@ -16,9 +16,9 @@ import java.util.List;
 public class CategoryController {
     private final CategoryServices categoryService;
 
-    @GetMapping("/page={page}")
-    public ResponseEntity<ResponseObject> getCategories(@PathVariable Integer page) {
-        return categoryService.getCategories(page);
+    @GetMapping
+    public ResponseEntity<ResponseObject> getCategories() {
+        return categoryService.getCategories();
     }
 
     @PostMapping(value = "/save", consumes = {"application/json"})
