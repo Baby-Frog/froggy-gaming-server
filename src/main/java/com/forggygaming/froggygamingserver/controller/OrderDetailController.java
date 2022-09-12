@@ -24,7 +24,6 @@ public class OrderDetailController {
 
     @PostMapping("/save")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-
     public ResponseEntity<ResponseObject> saveNewOrderDetail(@RequestBody OrderDetail orderDetail) {
         return orderDetailServices.saveNewOrderDetail(orderDetail);
     }

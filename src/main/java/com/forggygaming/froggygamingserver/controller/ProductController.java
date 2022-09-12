@@ -62,8 +62,7 @@ public class ProductController {
     }
 
     @PostMapping("/add-to-order-detail")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ResponseObject> addProductToOrderDetail(@RequestBody AddProductToOrderDetailForm form) {
+    public ResponseEntity<ResponseObject> addToOrderDetail(@RequestBody AddProductToOrderDetailForm form) {
         return productServices.addToOrderDetail(form);
     }
 

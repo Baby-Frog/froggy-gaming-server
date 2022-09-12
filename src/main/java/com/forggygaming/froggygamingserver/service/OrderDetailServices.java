@@ -50,8 +50,7 @@ public class OrderDetailServices {
         }
         orderDetailUpdate.setUpdatedAt(LocalDate.now());
         orderDetailUpdate.setQuantity(orderDetail.getQuantity());
-        orderDetailUpdate.setAddress(orderDetail.getAddress());
-        orderDetailUpdate.setPrice(orderDetail.getPrice());
+        orderDetailUpdate.setTotalPrice(orderDetail.getTotalPrice());
         orderDetailUpdate.setOrder(orderDetail.getOrder());
         orderDetailRepo.save(orderDetailUpdate);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Update successfully", orderDetailUpdate));

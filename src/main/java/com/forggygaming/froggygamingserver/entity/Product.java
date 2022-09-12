@@ -34,9 +34,8 @@ public class Product {
     private ProductDetail productDetail;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_detail_id")
-    private OrderDetail orderDetail;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "product")
+    private List<OrderDetail> orderDetails;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
@@ -49,6 +48,11 @@ public class Product {
     public void addImage(Image image) {
         image.setProduct(this);
         images.add(image);
+    }
+
+    public void addOrderDetail(OrderDetail orderDetail) {
+        orderDetail.setProduct(this);
+        orderDetails.add(orderDetail);
     }
 
     public void removeImage(Image image) {

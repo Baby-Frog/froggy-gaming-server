@@ -23,21 +23,16 @@ public class OrderDetail {
     @Column(updatable = false)
     private Long id;
     private int quantity;
-    private double price;
-    private String address;
+    private Long totalPrice;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     private Orders order;
 
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "orderDetail")
-    private List<Product> products;
-
-    public void addProduct(Product product) {
-        product.setOrderDetail(this);
-        products.add(product);
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id")
+    private Product product;
 }

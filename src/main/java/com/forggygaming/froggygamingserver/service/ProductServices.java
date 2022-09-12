@@ -64,7 +64,6 @@ public class ProductServices {
         productUpdate.setProName(product.getProName());
         productUpdate.setProDesc(product.getProDesc());
         productUpdate.setProPrice(product.getProPrice());
-        productUpdate.setOrderDetail(product.getOrderDetail());
         productUpdate.setProductDetail(product.getProductDetail());
         productUpdate.setCategory(product.getCategory());
         productUpdate.setBrand(product.getBrand());
@@ -99,16 +98,14 @@ public class ProductServices {
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", brand));
     }
 
-
     public ResponseEntity<ResponseObject> addToOrderDetail(AddProductToOrderDetailForm form) {
-        OrderDetail orderDetail = orderDetailRepo.findOrderDetailById(form.getOrderDetailId());
         Product product = productRepo.findProductByProName(form.getProName());
+        OrderDetail orderDetail = orderDetailRepo.findOrderDetailById(form.getOrderDetailId());
         if (product == null || orderDetail == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "Not exists !", null));
         }
-        orderDetail.addProduct(product);
-        orderDetail.setUpdatedAt(LocalDate.now());
-        orderDetailRepo.save(orderDetail);
+        product.addOrderDetail(orderDetail);
+        productRepo.save(product);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", orderDetail));
     }
 

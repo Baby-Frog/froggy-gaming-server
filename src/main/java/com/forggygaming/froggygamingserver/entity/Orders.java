@@ -20,6 +20,8 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long quantity;
+    private Long totalPrice;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
@@ -28,7 +30,6 @@ public class Orders {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
