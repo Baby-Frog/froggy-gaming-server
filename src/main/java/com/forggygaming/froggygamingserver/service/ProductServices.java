@@ -71,7 +71,7 @@ public class ProductServices {
         productUpdate.setProStatus(product.getProStatus());
         productUpdate.setUpdatedAt(LocalDate.now());
         productRepo.save(productUpdate);
-        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", productUpdate));
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
     }
 
     public ResponseEntity<ResponseObject> addToCategory(AddProductToCategoryForm form) {
