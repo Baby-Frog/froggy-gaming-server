@@ -49,14 +49,19 @@ public class CustomerServices {
         found.setCusAvatarPath(customer.getCusAvatarPath());
         found.setCusPhoneNumber(customer.getCusPhoneNumber());
         found.setPassword(customer.getPassword());
+        found.setUpdatedAt(LocalDate.now());
         return customerRepo.save(found);
     }
     public Customer insertCustomer(Customer customer) {
         log.info("Saving customer....");
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        customer.setCreatedAt(LocalDate.now());
+        customer.setUpdatedAt(LocalDate.now());
         return customerRepo.save(customer);
     }
     public Customer registerUser(Customer customer){
+        customer.setCreatedAt(LocalDate.now());
+        customer.setUpdatedAt(LocalDate.now());
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         Role role=roleRepo.findByRoleName("ROLE_USER");
         customer.getRoles().add(role);
