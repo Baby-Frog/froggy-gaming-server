@@ -31,4 +31,9 @@ public class Category {
         product.setCategory(this);
         products.add(product);
     }
+
+    public void removeProduct(Product product) {
+        product.setCategory(null);
+        products.remove(product);
+    }
 }

@@ -33,4 +33,9 @@ public class Brand {
         product.setBrand(this);
         products.add(product);
     }
+
+    public void removeProduct(Product product) {
+        product.setBrand(null);
+        products.remove(product);
+    }
 }

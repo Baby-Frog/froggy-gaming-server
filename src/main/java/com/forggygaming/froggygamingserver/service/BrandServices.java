@@ -1,8 +1,10 @@
 package com.forggygaming.froggygamingserver.service;
 
 import com.forggygaming.froggygamingserver.entity.Brand;
+import com.forggygaming.froggygamingserver.entity.Product;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.repository.BrandRepo;
+import com.forggygaming.froggygamingserver.repository.ProductRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BrandServices {
     private final BrandRepo brandRepo;
+
+    private final ProductRepo productRepo;
 
     public List<Brand> getBrands() {
         return brandRepo.findAll();
@@ -56,5 +60,13 @@ public class BrandServices {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FALSE", "This brand is not exists !", null));
         }
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", brands));
+    }
+
+    public ResponseEntity<ResponseObject> deleteProductByProId(Long brandId, Long proId) {
+        Brand brand = brandRepo.findBrandById(brandId);
+        Product product = productRepo.findProductByProId(proId);
+        brand.removeProduct(product);
+        brandRepo.save(brand);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", brand));
     }
 }

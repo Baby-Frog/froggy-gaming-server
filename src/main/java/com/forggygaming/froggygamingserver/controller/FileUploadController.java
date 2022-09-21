@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/fileupload")
+@CrossOrigin("http://localhost:3000")
+
 @Slf4j
 public class FileUploadController {
     @Autowired

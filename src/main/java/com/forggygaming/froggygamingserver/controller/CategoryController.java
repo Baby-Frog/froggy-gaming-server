@@ -12,6 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/category")
+@CrossOrigin("http://localhost:3000")
+
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryServices categoryService;
@@ -37,5 +39,11 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ResponseObject> updateCategoryById(@PathVariable Long id, @RequestBody Category category) {
         return categoryService.updateCategoryById(id, category);
+    }
+
+    @PostMapping("/{cateId}/remove/pro-id={proId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ResponseObject> deleteProductByProId(@PathVariable Long cateId, @PathVariable Long proId) {
+        return categoryService.deleteProductByProId(cateId, proId);
     }
 }

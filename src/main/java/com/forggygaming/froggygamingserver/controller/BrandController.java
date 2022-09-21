@@ -12,6 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/brand")
+@CrossOrigin("http://localhost:3000")
+
 @RequiredArgsConstructor
 public class BrandController {
     private final BrandServices brandServices;
@@ -44,5 +46,11 @@ public class BrandController {
     @GetMapping("/search/query={brandName}")
     public ResponseEntity<ResponseObject> searchBrandByBrandName(@PathVariable String brandName) {
         return brandServices.searchBrandByBrandName(brandName);
+    }
+
+    @PostMapping("/{brandId}/remove/pro-id={proId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ResponseObject> deleteProductByProId(@PathVariable Long brandId, @PathVariable Long proId) {
+        return brandServices.deleteProductByProId(brandId, proId);
     }
 }

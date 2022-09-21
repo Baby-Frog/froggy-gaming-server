@@ -13,6 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/image")
+@CrossOrigin("http://localhost:3000")
+
 @RequiredArgsConstructor
 public class ImageController {
     private final ImageServices imageServices;

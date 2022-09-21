@@ -1,8 +1,10 @@
 package com.forggygaming.froggygamingserver.service;
 
 import com.forggygaming.froggygamingserver.entity.Category;
+import com.forggygaming.froggygamingserver.entity.Product;
 import com.forggygaming.froggygamingserver.entity.ResponseObject;
 import com.forggygaming.froggygamingserver.repository.CategoryRepo;
+import com.forggygaming.froggygamingserver.repository.ProductRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +21,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoryServices {
     private final CategoryRepo categoryRepo;
+
+    private final ProductRepo productRepo;
 
     public ResponseEntity<ResponseObject> getCategories() {
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", categoryRepo.findAll()));
@@ -50,5 +54,14 @@ public class CategoryServices {
         categoryUpdate.setUpdatedAt(LocalDate.now());
         categoryRepo.save(categoryUpdate);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", categoryUpdate));
+    }
+
+    public ResponseEntity<ResponseObject> deleteProductByProId(Long cateId, Long proId) {
+        Category category = categoryRepo.findCategoryByCateId(cateId);
+        Product product = productRepo.findProductByProId(proId);
+        category.removeProduct(product);
+        categoryRepo.save(category);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", category));
+
     }
 }

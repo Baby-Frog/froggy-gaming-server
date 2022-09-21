@@ -71,8 +71,8 @@ public class Customer {
         this.orders = orders;
     }
 
-    public void addOrder(Orders orders) {
-        orders.setCustomer(this);
-        this.orders.add(orders);
+    public void addOrder(Orders order) {
+        order.setCustomer(this);
+        orders.add(order);
     }
 }

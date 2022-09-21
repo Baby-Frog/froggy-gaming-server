@@ -9,6 +9,7 @@ import org.hibernate.annotations.Nationalized;
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Data @Transactional
@@ -54,13 +55,19 @@ public class Product {
         orderDetail.setProduct(this);
         orderDetails.add(orderDetail);
     }
-
-    public void removeImage(Image image) {
-        image.setProduct(null);
-        images.remove(image);
-    }
-
     public void addProductDetail(ProductDetail productDetail) {
         productDetail.setProduct(this);
+    }
+
+    // xoa item
+    public void removeImage() {
+        for(Image image : images) {
+            image.setProduct(null);
+        }
+        images.clear();
+    }
+
+    public void removeProductDetail(ProductDetail productDetail) {
+        productDetail.setProduct(null);
     }
 }

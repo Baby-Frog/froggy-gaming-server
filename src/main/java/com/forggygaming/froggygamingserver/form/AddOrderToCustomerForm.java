@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class AddOrderToCustomerForm {
-    private String cusEmail;
+    private String username;
     private Long orderId;
 }

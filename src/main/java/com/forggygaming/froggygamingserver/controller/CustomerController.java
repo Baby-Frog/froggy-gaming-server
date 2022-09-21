@@ -13,6 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/customer")
+@CrossOrigin("http://localhost:3000")
+
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerServices customerServices;
@@ -54,8 +56,6 @@ public class CustomerController {
     }
 
 //
-
-
     @GetMapping("/get")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     public ResponseEntity<ResponseObject> viewProfile() {

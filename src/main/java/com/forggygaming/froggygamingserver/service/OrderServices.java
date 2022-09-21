@@ -54,7 +54,7 @@ public class OrderServices {
 
     public ResponseEntity<ResponseObject> addOrderToCustomer(AddOrderToCustomerForm form) {
         Orders orders = orderRepo.findOrderById(form.getOrderId());
-        Customer customer = customerRepo.findByCusEmail(form.getCusEmail());
+        Customer customer = customerRepo.findByUsername(form.getUsername());
         if (orders == null || customer == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("FASLE", "Not found", ""));
         }

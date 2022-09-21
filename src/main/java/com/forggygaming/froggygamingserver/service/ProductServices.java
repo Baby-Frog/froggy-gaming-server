@@ -230,14 +230,6 @@ public class ProductServices {
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
     }
 
-    public ResponseEntity<ResponseObject> removeImageInProduct(Long proId, Long imgId) {
-        Product product = productRepo.findProductByProId(proId);
-        Image image = imageRepo.findImageByImgId(imgId);
-        product.removeImage(image);
-        productRepo.save(product);
-        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
-    }
-
     public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryId(String proName, Integer page, Long cateId) {
         Pageable pageable = PageRequest.of(page - 1, 12);
         Page<Product> products = productRepo.findProductsByProNameAndCategory(proName, cateId, pageable);
@@ -284,5 +276,19 @@ public class ProductServices {
         Pageable pageable = PageRequest.of(page - 1, 12, Sort.by("proPrice").descending());
         Page<Product> products = productRepo.productsListByProNameAndProPriceZone(proName, proPriceMin, proPriceMax, pageable);
         return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", products));
+    }
+
+    public ResponseEntity<ResponseObject> removeAllImageInProduct(Long proId) {
+        Product product = productRepo.findProductByProId(proId);
+        product.removeImage();
+        productRepo.save(product);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
+    }
+
+    public ResponseEntity<ResponseObject> removeProductDetailInProduct(Long proId) {
+        Product product = productRepo.findProductByProId(proId);
+        product.removeProductDetail(product.getProductDetail());
+        productRepo.save(product);
+        return ResponseEntity.ok().body(new ResponseObject("OK", "Successfully", product));
     }
 }

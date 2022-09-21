@@ -16,6 +16,7 @@ import javax.annotation.security.PermitAll;
 
 @RestController
 @RequestMapping("api/v1/product")
+@CrossOrigin("http://localhost:3000")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductServices productServices;
@@ -166,12 +167,6 @@ public class ProductController {
         return productServices.getProductsByBrandId(brandId);
     }
 
-    @PostMapping("/{proId}/remove/image-id={imgId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ResponseObject> removeImageInProduct(@PathVariable Long proId, @PathVariable Long imgId) {
-        return productServices.removeImageInProduct(proId, imgId);
-    }
-
     @GetMapping("/search/query={proName}&page={page}/cate-id={cateId}")
     public ResponseEntity<ResponseObject> searchProductsByNameAndCategoryId(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long cateId) {
         return productServices.searchProductsByNameAndCategoryId(proName, page, cateId);
@@ -210,5 +205,18 @@ public class ProductController {
     @GetMapping("/search/query={proName}&page={page}&sort=pro.price&order=desc/min-price={proPriceMin}&max-price={proPriceMax}")
     public ResponseEntity<ResponseObject> searchProductsByNameDescSortInProPriceZone(@PathVariable String proName, @PathVariable Integer page, @PathVariable Long proPriceMin, @PathVariable Long proPriceMax) {
         return productServices.searchProductsByNameDescSortInProPriceZone(proName, page, proPriceMin, proPriceMax);
+    }
+
+    @PostMapping("/{proId}/remove/images")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ResponseObject> removeImageInProduct(@PathVariable Long proId) {
+        return productServices.removeAllImageInProduct(proId);
+    }
+
+
+    @PostMapping("/{proId}/remove/product-detail")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ResponseObject> removeProductDetailInProduct(@PathVariable Long proId) {
+        return productServices.removeProductDetailInProduct(proId);
     }
 }

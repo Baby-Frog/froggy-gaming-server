@@ -14,6 +14,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/order")
+@CrossOrigin("http://localhost:3000")
+
 public class OrderController {
     private final OrderServices orderServices;
 
@@ -43,7 +45,6 @@ public class OrderController {
     }
 
     @PostMapping("/add-to-customer")
-
     public ResponseEntity<ResponseObject> addOrderToCustomer(@RequestBody AddOrderToCustomerForm form) {
         return orderServices.addOrderToCustomer(form);
     }
