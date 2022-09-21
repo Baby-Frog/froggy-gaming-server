@@ -22,6 +22,7 @@ public class Orders {
     private Long id;
     private Long quantity;
     private Long totalPrice;
+    private String username;
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
